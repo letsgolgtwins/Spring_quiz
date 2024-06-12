@@ -13,6 +13,6 @@ public class Lesson01Quiz03Controller {
 		// ViewResolver에 의해 리턴된 HTML 경로를 찾아 화면이 구성된다.
 		
 		// templates/lesson01/quiz03.html
-		return "lesson01/quiz03"; // 슬래시도 붙이지 않는다.
+		return "lesson01/quiz03"; // 슬래시도 붙이지 않는다.ㅋㅋ
 	}
 }
