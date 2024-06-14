@@ -12,12 +12,12 @@ import com.quiz.retry.lesson02.domain.StoreRetry;
 @RestController
 public class Lesson02Quiz01RestControllerRetry {
 
-	@Autowired
+	@Autowired // DI
 	private StoreServiceRetry storeServiceRetry;
-	
+
 	// http://localhost:8080/retry/lesson02/quiz01
 	@RequestMapping("/retry/lesson02/quiz01")
-	public List<StoreRetry> quiz01Retry() {
+	public List<StoreRetry> quiz01() {
 		return storeServiceRetry.getStoreList();
 	}
 }

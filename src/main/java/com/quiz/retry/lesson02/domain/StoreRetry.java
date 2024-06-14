@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 // java bean
 public class StoreRetry {
-	// 필드 긁어오기
+	// 필드값
 	private int id;
 	private String name;
 	private String phoneNumber;

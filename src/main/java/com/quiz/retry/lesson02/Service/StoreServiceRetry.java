@@ -11,12 +11,12 @@ import com.quiz.retry.lesson02.mapper.StoreMapperRetry;
 @Service
 public class StoreServiceRetry {
 
-	@Autowired
+	@Autowired // DI
 	private StoreMapperRetry storeMapperRetry;
-	
-	// input: x (controller로 부터 다 내놓으라는 요청 받음)
-	// output: List<domain> 
+
+	// input: X (controller로 부터 응답 받음)
+	// output: List<domain> (mapper한테 받아서 controller한테 줄 거임)
 	public List<StoreRetry> getStoreList() {
-		return storeMapperRetry.selectStoreRetryList();
+		return storeMapperRetry.selectStoreListRetry();
 	}
 }
