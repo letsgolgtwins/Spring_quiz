@@ -13,13 +13,19 @@ public class RealEstateBO {
 
 	@Autowired
 	private RealEstateMapper realEstateMapper;
-	// input
-	// output
+	
+	// quiz01_1
 	public RealEstate getRealEstateById(int id) {
 		return realEstateMapper.selectRealEstateMapperById(id);
 	}
 	
+	// quiz01_2
 	public List<RealEstate> getRealEstateByRentPrice(int rentPrice) {
 		return realEstateMapper.selectRealEstateMapperByRentPrice(rentPrice);
+	}
+	
+	// quiz01_3
+	public List<RealEstate> getRealEstateByAreaAndPrice(int area, int price) {
+		return realEstateMapper.selectRealEstateMapperByAreaAndPrice(area, price);
 	}
 }

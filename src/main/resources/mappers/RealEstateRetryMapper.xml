@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="com.quiz.retry.lesson03.mapper.RealEstateMapperRetry">
+ 	<!-- quiz01_1 -->
+ 	<select id="selectRealEstateRetryById" parameterType="int" resultType="com.quiz.retry.lesson03.domain.RealEstateRetry">
+ 		SELECT
+ 			`id`
+			,`realtorId`
+			,`address`
+			,`area`
+			,`type`
+			,`price`
+			,`rentPrice`
+			,`createdAt`
+			,`updatedAt`
+ 		FROM
+ 			`real_estate`
+ 		WHERE
+ 			`id` = #{id}
+ 	</select>
+ 	<!-- quiz01_2 -->
+ 	<select id="selectRealEstateRetryByRentPrice" parameterType="int" resultType="com.quiz.retry.lesson03.domain.RealEstateRetry">
+ 		SELECT
+ 			`id`
+			,`realtorId`
+			,`address`
+			,`area`
+			,`type`
+			,`price`
+			,`rentPrice`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`real_estate`
+		WHERE 	
+			<![CDATA[
+       		 `rentPrice` < #{rentPrice}
+        	]]>
+ 	</select>
+ </mapper>
