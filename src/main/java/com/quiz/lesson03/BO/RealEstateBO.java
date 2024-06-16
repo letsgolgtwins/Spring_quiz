@@ -1,6 +1,8 @@
 package com.quiz.lesson03.BO;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +28,9 @@ public class RealEstateBO {
 	
 	// quiz01_3
 	public List<RealEstate> getRealEstateByAreaAndPrice(int area, int price) {
-		return realEstateMapper.selectRealEstateMapperByAreaAndPrice(area, price);
+		Map<String, Object> map = new HashMap<>();
+		map.put("area", area);
+		map.put("price", price);
+		return realEstateMapper.selectRealEstateMapperByAreaAndPrice(map);
 	}
 }

@@ -1,6 +1,7 @@
 package com.quiz.lesson03.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -15,5 +16,5 @@ public interface RealEstateMapper {
 	public List<RealEstate> selectRealEstateMapperByRentPrice(int rentPrice);
 
 	// quiz01_3
-	public List<RealEstate> selectRealEstateMapperByAreaAndPrice(int area, int price);
+	public List<RealEstate> selectRealEstateMapperByAreaAndPrice(Map<String, Object> map);
 }

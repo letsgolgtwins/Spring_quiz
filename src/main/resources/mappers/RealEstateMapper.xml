@@ -42,7 +42,7 @@
  	</select>
  	
  	<!-- lesson03 quiz01_3 -->
- 	<select id="selectRealEstateMapperByAreaAndPrice" parameterType="int" resultType="com.quiz.lesson03.domain.RealEstate">
+ 	<select id="selectRealEstateMapperByAreaAndPrice" parameterType="Map" resultType="com.quiz.lesson03.domain.RealEstate">
  		SELECT
  			`id`
 			,`realtorId`
