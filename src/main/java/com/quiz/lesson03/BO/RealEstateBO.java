@@ -27,10 +27,22 @@ public class RealEstateBO {
 	}
 	
 	// quiz01_3
-	public List<RealEstate> getRealEstateByAreaAndPrice(int area, int price) {
-		Map<String, Object> map = new HashMap<>();
-		map.put("area", area);
-		map.put("price", price);
-		return realEstateMapper.selectRealEstateMapperByAreaAndPrice(map);
+	public List<RealEstate> getRealEstateByAreaAndPrice(int area, int price) { // input: 컨트롤러로부터 넘어오는 값 output: 여러개의 행
+//		Map<String, Object> map = new HashMap<>();
+//		map.put("area", area);
+//		map.put("price", price);
+		return realEstateMapper.selectRealEstateMapperByAreaAndPrice(area, price);
+	}
+	
+	// quiz02_1
+	// input: RealEstate
+	// output: 성공한 행의 개수
+	public int addRealEstate(RealEstate realestate) {
+		return realEstateMapper.insertRealEstate(realestate);
+	}
+	
+	// quiz02_2
+	public int addRealEstateAsField(int realtorId, String address, int area, String type, int price, Integer rentPrice) { // null허용 컬럼은 꼭 대문자 자료형으로 해줘야 한다.
+		return realEstateMapper.insertRealEstateAsField(realtorId, address, area, type, price, rentPrice);
 	}
 }

@@ -39,4 +39,25 @@
        		 `rentPrice` < #{rentPrice}
         	]]>
  	</select>
+ 	<!-- quiz01_3 -->
+ 	<select id="selectRealEstateRetryByAreaAndprice" parameterType="map" resultType="com.quiz.retry.lesson03.domain.RealEstateRetry">
+ 		SELECT
+ 			`id`
+			,`realtorId`
+			,`address`
+			,`area`
+			,`type`
+			,`price`
+			,`rentPrice`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`real_estate`
+		WHERE 
+			`type` = '매매'
+		AND	<![CDATA[`area` >= #{area}]]>
+		AND	<![CDATA[`price` <= #{price}]]>
+		ORDER BY
+			`createdAt` DESC
+ 	</select>
  </mapper>

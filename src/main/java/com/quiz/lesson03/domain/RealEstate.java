@@ -11,7 +11,7 @@ public class RealEstate {
 	private int area;
 	private String type;
 	private int price;
-	private Integer rentPrice;
+	private Integer rentPrice; // null 허용
 	private LocalDateTime createdAt;
 	private LocalDateTime updatedAt;
 

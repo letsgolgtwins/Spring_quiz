@@ -1,6 +1,7 @@
 package com.quiz.retry.lesson03.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -14,4 +15,7 @@ public interface RealEstateMapperRetry {
 	
 	// quiz01_2
 	public List<RealEstateRetry> selectRealEstateRetryByRentPrice(int rentPrice);
+
+	// quiz01_3
+	public List<RealEstateRetry> selectRealEstateRetryByAreaAndprice(Map<String, Object> map);
 }

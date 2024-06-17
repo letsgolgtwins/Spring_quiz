@@ -32,4 +32,11 @@ public class Lesson03Quiz01RestControllerRetry {
 		return realEstateServiceRetry.getRealEstateRetryByRentPrice(rentPrice);
 	}
 	
+	// 비필수 파라미터로 만들기
+	// http://localhost:8080/retry/lesson03/quiz01/03?area=90&price=130000
+	@RequestMapping("/03")
+	public List<RealEstateRetry> quiz01_3(@RequestParam("area") int area, @RequestParam("price") int price) {
+		return realEstateServiceRetry.getRealEstateRetryByAreaAndPrice(area, price);
+	}
+	
 }

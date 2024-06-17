@@ -42,7 +42,7 @@
  	</select>
  	
  	<!-- lesson03 quiz01_3 -->
- 	<select id="selectRealEstateMapperByAreaAndPrice" parameterType="Map" resultType="com.quiz.lesson03.domain.RealEstate">
+ 	<select id="selectRealEstateMapperByAreaAndPrice" parameterType="map" resultType="com.quiz.lesson03.domain.RealEstate">
  		SELECT
  			`id`
 			,`realtorId`
@@ -62,4 +62,56 @@
         ORDER BY 
         	`createdAt` DESC
  	</select>
+ 	
+ 	<!-- lesson03 quiz02_1 -->
+ 	<insert id="insertRealEstate" parameterType="com.quiz.lesson03.domain.RealEstate">
+ 		INSERT INTO `real_estate`
+ 		(
+ 			`realtorId`
+			,`address`
+			,`area`
+			,`type`
+			,`price`
+			,`rentPrice`
+			,`createdAt`
+			,`updatedAt`
+ 		)
+ 		VALUES
+ 		(
+ 			#{realtorId}
+ 			,#{address}
+ 			,#{area}
+ 			,#{type}
+ 			,#{price}
+ 			,#{rentPrice}
+ 			, NOW()
+ 			, NOW()
+ 		)
+ 	</insert>
+ 	
+ 	<!-- lesson03 quiz02_2 -->
+ 	<insert id="insertRealEstateAsField" parameterType="map">
+ 		INSERT INTO `real_estate`
+ 		(
+ 			`realtorId`
+			,`address`
+			,`area`
+			,`type`
+			,`price`
+			,`rentPrice`
+			,`createdAt`
+			,`updatedAt`
+ 		)
+ 		VALUES
+ 		(
+ 			#{realtorId}
+ 			,#{address}
+ 			,#{area}
+ 			,#{type}
+ 			,#{price}
+ 			,#{rentPrice}
+ 			, NOW()
+ 			, NOW()
+ 		)
+ 	</insert>
  </mapper>
