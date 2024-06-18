@@ -50,4 +50,9 @@ public class RealEstateBO {
 	public int updateRealEstateAsField(int id, String type, int price) {
 		return realEstateMapper.updateRealEstateAsField(id, type, price);
 	}
+	
+	// quiz04 delete
+	public int deleteRealEstateById(int id) {
+		return realEstateMapper.deleteRealEstateById(id);
+	}
 }

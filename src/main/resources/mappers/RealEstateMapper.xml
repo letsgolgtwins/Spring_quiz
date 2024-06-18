@@ -121,8 +121,17 @@
  		SET 
  			`type` = #{type},
  			`price` = #{price},
- 			`createdAt` = NOW()
+ 			`updatedAt` = NOW() <!-- 근데 여기까지만 하면 모든행들이 다 바뀌므로, id가 들어온 그 행만 하도록 where문을 아래에 써준다. -->
  		WHERE
  			`id` = #{id}
  	</update>
+ 	
+ 	<!-- lesson03 quiz04 delete -->
+ 	<delete id="deleteRealEstateById" parameterType="int">
+ 		DELETE 
+ 		FROM
+ 			`real_estate`
+ 		WHERE
+ 			`id`=#{id}
+ 	</delete>
  </mapper>

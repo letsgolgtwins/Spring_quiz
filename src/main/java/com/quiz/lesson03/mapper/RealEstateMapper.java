@@ -45,4 +45,7 @@ public interface RealEstateMapper {
 			@Param("type") String type, 
 			@Param("price") int price
 			);
+	
+	// quiz04 delete
+	public int deleteRealEstateById(int id);
 }

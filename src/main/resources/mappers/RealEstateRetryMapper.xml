@@ -122,7 +122,7 @@
 		SET
 			`type`= #{type},
 			`price`= #{price},
-			`createdAt` = NOW()
+			`updatedAt` = NOW()
 		WHERE
 			`id` = #{id}
 	</update>
