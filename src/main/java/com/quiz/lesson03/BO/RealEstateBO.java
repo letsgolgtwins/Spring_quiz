@@ -16,17 +16,17 @@ public class RealEstateBO {
 	@Autowired
 	private RealEstateMapper realEstateMapper;
 	
-	// quiz01_1
+	// quiz01_1 select
 	public RealEstate getRealEstateById(int id) {
 		return realEstateMapper.selectRealEstateMapperById(id);
 	}
 	
-	// quiz01_2
+	// quiz01_2 select
 	public List<RealEstate> getRealEstateByRentPrice(int rentPrice) {
 		return realEstateMapper.selectRealEstateMapperByRentPrice(rentPrice);
 	}
 	
-	// quiz01_3
+	// quiz01_3 select
 	public List<RealEstate> getRealEstateByAreaAndPrice(int area, int price) { // input: 컨트롤러로부터 넘어오는 값 output: 여러개의 행
 //		Map<String, Object> map = new HashMap<>();
 //		map.put("area", area);
@@ -34,15 +34,20 @@ public class RealEstateBO {
 		return realEstateMapper.selectRealEstateMapperByAreaAndPrice(area, price);
 	}
 	
-	// quiz02_1
+	// quiz02_1 insert
 	// input: RealEstate
 	// output: 성공한 행의 개수
 	public int addRealEstate(RealEstate realestate) {
 		return realEstateMapper.insertRealEstate(realestate);
 	}
 	
-	// quiz02_2
+	// quiz02_2 insert
 	public int addRealEstateAsField(int realtorId, String address, int area, String type, int price, Integer rentPrice) { // null허용 컬럼은 꼭 대문자 자료형으로 해줘야 한다.
 		return realEstateMapper.insertRealEstateAsField(realtorId, address, area, type, price, rentPrice);
+	}
+	
+	// quiz03 update
+	public int updateRealEstateAsField(int id, String type, int price) {
+		return realEstateMapper.updateRealEstateAsField(id, type, price);
 	}
 }

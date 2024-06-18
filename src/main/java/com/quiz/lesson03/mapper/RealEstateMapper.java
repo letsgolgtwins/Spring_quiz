@@ -10,26 +10,26 @@ import com.quiz.lesson03.domain.RealEstate;
 
 @Mapper
 public interface RealEstateMapper {
-	// quiz01_1
+	// quiz01_1 select
 	public RealEstate selectRealEstateMapperById(int id);
 	
-	// quiz01_2
+	// quiz01_2 select
 	public List<RealEstate> selectRealEstateMapperByRentPrice(int rentPrice);
 
-	// quiz01_3
+	// quiz01_3 select
 //	public List<RealEstate> selectRealEstateMapperByAreaAndPrice(Map<String, Object> map);
 	
-	// quiz01_3 모범답안
+	// quiz01_3 select 모범답안
 	// mapper 인터페이스가 xml파라미터 전송시 1개만 보낼 수 있다.
 	// @Param 어노테이션을 사용하면 파라미터를 하나의 맵으로 구성해준다.
 	public List<RealEstate> selectRealEstateMapperByAreaAndPrice(
 			@Param("area") int area, // "area" key이름 <- 얘가 #{ } 안에 들어간다. 일치가 중요함 
 			@Param("price") int price);
 	
-	// quiz02_1
+	// quiz02_1 insert
 	public int insertRealEstate(RealEstate realestate);
 	
-	// quiz02_2
+	// quiz02_2 insert
 	public int insertRealEstateAsField(
 			@Param("realtorId") int realtorId, 
 			@Param("address") String address, 
@@ -37,5 +37,12 @@ public interface RealEstateMapper {
 			@Param("type") String type, 
 			@Param("price") int price, 
 			@Param("rentPrice") int rentPrice
+			);
+	
+	// quiz03 update
+	public int updateRealEstateAsField(
+			@Param("id") int id, 
+			@Param("type") String type, 
+			@Param("price") int price
 			);
 }

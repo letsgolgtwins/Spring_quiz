@@ -3,7 +3,7 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
  <mapper namespace="com.quiz.lesson03.mapper.RealEstateMapper">
- 	<!-- lesson03 quiz01_1 -->
+ 	<!-- lesson03 quiz01_1 select -->
  	<select id="selectRealEstateMapperById" parameterType="int" resultType="com.quiz.lesson03.domain.RealEstate">
  		SELECT
  			`id`
@@ -21,7 +21,7 @@
  			`id` = #{id}	
  	</select>
  	
- 	<!-- lesson03 quiz01_2 -->
+ 	<!-- lesson03 quiz01_2 select -->
  	<select id="selectRealEstateMapperByRentPrice" parameterType="int" resultType="com.quiz.lesson03.domain.RealEstate">
  		SELECT
  			`id`
@@ -41,7 +41,7 @@
         ]]>
  	</select>
  	
- 	<!-- lesson03 quiz01_3 -->
+ 	<!-- lesson03 quiz01_3 select -->
  	<select id="selectRealEstateMapperByAreaAndPrice" parameterType="map" resultType="com.quiz.lesson03.domain.RealEstate">
  		SELECT
  			`id`
@@ -63,7 +63,7 @@
         	`createdAt` DESC
  	</select>
  	
- 	<!-- lesson03 quiz02_1 -->
+ 	<!-- lesson03 quiz02_1 insert -->
  	<insert id="insertRealEstate" parameterType="com.quiz.lesson03.domain.RealEstate">
  		INSERT INTO `real_estate`
  		(
@@ -89,7 +89,7 @@
  		)
  	</insert>
  	
- 	<!-- lesson03 quiz02_2 -->
+ 	<!-- lesson03 quiz02_2 insert -->
  	<insert id="insertRealEstateAsField" parameterType="map">
  		INSERT INTO `real_estate`
  		(
@@ -114,4 +114,15 @@
  			, NOW()
  		)
  	</insert>
+ 	
+ 	<!-- lesson03 quiz03 update -->
+ 	<update id="updateRealEstateAsField" parameterType="map">
+ 		UPDATE `real_estate`
+ 		SET 
+ 			`type` = #{type},
+ 			`price` = #{price},
+ 			`createdAt` = NOW()
+ 		WHERE
+ 			`id` = #{id}
+ 	</update>
  </mapper>

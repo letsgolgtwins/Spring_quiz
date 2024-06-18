@@ -3,7 +3,8 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
  <mapper namespace="com.quiz.retry.lesson03.mapper.RealEstateMapperRetry">
- 	<!-- quiz01_1 -->
+ 	
+ 	<!-- lesson03 quiz01_1 select -->
  	<select id="selectRealEstateRetryById" parameterType="int" resultType="com.quiz.retry.lesson03.domain.RealEstateRetry">
  		SELECT
  			`id`
@@ -20,7 +21,8 @@
  		WHERE
  			`id` = #{id}
  	</select>
- 	<!-- quiz01_2 -->
+ 	
+ 	<!-- lesson03 quiz01_2 select -->
  	<select id="selectRealEstateRetryByRentPrice" parameterType="int" resultType="com.quiz.retry.lesson03.domain.RealEstateRetry">
  		SELECT
  			`id`
@@ -39,7 +41,8 @@
        		 `rentPrice` < #{rentPrice}
         	]]>
  	</select>
- 	<!-- quiz01_3 -->
+ 	
+ 	<!-- lesson03 quiz01_3 select -->
  	<select id="selectRealEstateRetryByAreaAndprice" parameterType="map" resultType="com.quiz.retry.lesson03.domain.RealEstateRetry">
  		SELECT
  			`id`
@@ -60,4 +63,67 @@
 		ORDER BY
 			`createdAt` DESC
  	</select>
+
+	<!-- lesson03 quiz02_1 insert -->
+	<insert id="insertRealEstateRetry" parameterType="com.quiz.retry.lesson03.domain.RealEstateRetry">
+		INSERT INTO `real_estate` 
+		(
+			`realtorId`
+			,`address`
+			,`area`
+			,`type`
+			,`price`
+			,`rentPrice`
+			,`createdAt`
+			,`updatedAt`
+		)
+		VALUES
+		(
+			#{realtorId}
+			,#{address}
+			,#{area}
+			,#{type}
+			,#{price}
+			,#{rentPrice}
+			, NOW()
+			, NOW()
+		)
+	</insert>
+	
+	<!-- lesson03 quiz02_2 insert -->
+	<insert id="insertRealEstateRetryAsField" parameterType="map">
+		INSERT INTO `real_estate` 
+		(
+			`realtorId`
+			,`address`
+			,`area`
+			,`type`
+			,`price`
+			,`rentPrice`
+			,`createdAt`
+			,`updatedAt`
+		)
+		VALUES
+		(
+			#{realtorId}
+			,#{address}
+			,#{area}
+			,#{type}
+			,#{price}
+			,#{rentPrice}
+			, NOW()
+			, NOW()
+		)
+	</insert>
+	
+	<!-- lesson03 quiz03 update -->
+	<update id="updateRealEstateRetry" parameterType="map">
+		UPDATE `real_estate`
+		SET
+			`type`= #{type},
+			`price`= #{price},
+			`createdAt` = NOW()
+		WHERE
+			`id` = #{id}
+	</update>
  </mapper>

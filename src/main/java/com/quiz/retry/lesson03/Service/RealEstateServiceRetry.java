@@ -33,4 +33,19 @@ public class RealEstateServiceRetry {
 		map.put("price", price);
 		return realEstateMapperRetry.selectRealEstateRetryByAreaAndprice(map);
 	}
+	
+	// quiz02_1
+	public int addRealEstateRetry(RealEstateRetry realEstateRetry) {
+		return realEstateMapperRetry.insertRealEstateRetry(realEstateRetry);
+	}
+	
+	// quiz02_2
+	public int addRealEstateRetryAsField(int realtorId, String address, int area, String type, int price, int rentPrice) {
+		return realEstateMapperRetry.insertRealEstateRetryAsField(realtorId, address, area, type, price, rentPrice);
+	}
+	
+	// quiz03
+	public int updateRealEstateRetry(int id, String type, int price) {
+		return realEstateMapperRetry.updateRealEstateRetry(id, type, price);
+	}
 }
