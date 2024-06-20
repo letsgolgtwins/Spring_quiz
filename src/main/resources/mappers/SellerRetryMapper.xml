@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="com.quiz.retry.lesson04.mapper.SellerMapperRetry">
+ 	<!-- lesson04 quiz01_DB저장(insert) -->
+ 	<insert id="insertSellerRetry" parameterType="map">
+ 		INSERT INTO `seller`
+ 		(
+			`nickname`
+			,`profileImageUrl`
+			,`temperature`
+			,`createdAt`
+			,`updatedAt`
+ 		)
+ 		VALUES
+ 		(
+ 			#{nickname}
+ 			,#{profileImageUrl}
+ 			,#{temperature}
+ 			,NOW()
+ 			,NOW()
+ 		)
+ 	</insert>
+ 	
+ 	<!-- lesson04 quiz01_2 최신 정보 가져오기 -->
+ 	<select id="selectSellerRetry" resultType="com.quiz.retry.lesson04.domain.SellerRetry">
+ 		SELECT
+ 			`id`
+ 			,`nickname`
+			,`profileImageUrl`
+			,`temperature`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`seller`
+		ORDER BY `id` DESC
+		LIMIT 1
+ 	</select>
+ 	
+ 	<!-- lesson04 quiz01_3 id 파라미터 검색 출력 -->
+ 	<select id="selectSellerRetryById" resultType="com.quiz.retry.lesson04.domain.SellerRetry">
+ 		SELECT
+ 			`id`
+ 			,`nickname`
+			,`profileImageUrl`
+			,`temperature`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`seller`
+		ORDER BY `id` DESC
+		LIMIT 1
+ 	</select>
+ </mapper>
