@@ -24,7 +24,6 @@ public class Lesson04Quiz01ControllerRetry {
 		return "lesson04/addSellerRetry";
 	}
 	
-	// http://localhost:8080/retry/lesson04/quiz01/add-seller
 	@PostMapping("/add-seller")
 	public String AddSeller(
 			@RequestParam("nickname") String nickname,
