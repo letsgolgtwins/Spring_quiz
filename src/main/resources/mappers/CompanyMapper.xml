@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="com.quiz.retry.lesson04.mapper.CompanyMapper">
+ 	<!-- db에 insert -->
+	<insert id="insertCompany" parameterType="com.quiz.retry.lesson04.domain.Company"
+	useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO `company`
+		(
+			`name`
+			,`busniess`
+			,`scale`
+			,`headcount`
+			,`createdAt`
+			,`updatedAt`
+		)
+		VALUES 
+		(
+			#{name}
+			,#{busniess}
+			,#{scale}
+			,#{headcount}
+			,NOW()
+			,NOW() 
+		)
+	</insert> 	
+ 	
+ 	<!-- db에서 select -->
+ 	<select id="selctCompanyById" parameterType="int" resultType="com.quiz.retry.lesson04.domain.Company">
+ 		SELECT
+ 			`id`
+ 			,`name`
+			,`busniess`
+			,`scale`
+			,`headcount`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`company`
+		WHERE
+			`id` = #{id}
+ 	</select>
+ 
+ </mapper>
