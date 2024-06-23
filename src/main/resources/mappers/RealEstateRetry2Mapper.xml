@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="com.quiz.retry.lesson03.mapper.RealEstateMapperRetry2">
+ 	<!-- lesson03 quiz01_1 - 단건 select -->
+ 	<select id="selectRealEstateById" parameterType="int" resultType="com.quiz.retry.lesson03.domain.RealEstateRetry2">
+ 		SELECT
+ 			`id` 
+ 			,`realtorId`
+			,`address`
+			,`area`
+			,`type`
+			,`price`
+			,`rentPrice`
+			,`createdAt`
+			,`updatedAt`
+ 		FROM
+ 			`real_estate`
+ 		WHERE
+ 			`id`=#{id}
+ 	</select>
+ 	
+ 	<!-- lesson03 quiz01_2 - 여러건 select -->
+ 	<select id="selectRealEstateByRentPrice" parameterType="int" resultType="com.quiz.retry.lesson03.domain.RealEstateRetry2">
+ 		SELECT
+ 			`id` 
+ 			,`realtorId`
+			,`address`
+			,`area`
+			,`type`
+			,`price`
+			,`rentPrice`
+			,`createdAt`
+			,`updatedAt`
+ 		FROM
+ 			`real_estate`
+ 		WHERE
+ 			<![CDATA[ `rentPrice` < #{rentPrice2} ]]>
+ 	</select>
+ 	
+ 	<!-- lesson03 quiz01_3 - 복합조건 select -->
+ 	<select id="selectRealEstateByAreaAndPrice" parameterType="Map" resultType="com.quiz.retry.lesson03.domain.RealEstateRetry2">
+ 		SELECT
+ 			`id` 
+ 			,`realtorId`
+			,`address`
+			,`area`
+			,`type`
+			,`price`
+			,`rentPrice`
+			,`createdAt`
+			,`updatedAt`
+ 		FROM
+ 			`real_estate`
+ 		WHERE
+ 			`type` = "매매"
+ 		AND 
+ 			<![CDATA[ `area` >= #{area} ]]>
+ 		AND
+ 			<![CDATA[ `price` <= #{price} ]]>
+ 	</select>
+ 	
+ 	<!-- lesson03 quiz02_1 - 객체로 insert 하기 -->
+ 	<insert id="insertRealEstate" parameterType="com.quiz.retry.lesson03.domain.RealEstateRetry2">
+ 		INSERT INTO `real_estate`
+ 		(
+ 			`realtorId`
+			,`address`
+			,`area`
+			,`type`
+			,`price`
+			,`rentPrice`
+			,`createdAt`
+			,`updatedAt`
+ 		)
+ 		VALUES
+ 		(
+ 			#{realtorId}
+ 			,#{address}
+ 			,#{area}
+ 			,#{type}
+ 			,#{price}
+ 			,#{rentPrice}
+ 			,NOW()
+ 			,NOW()
+ 		)
+ 	</insert>
+ 	
+ 	<!-- lesson03 quiz02_2 - 필드로 insert 하기 -->
+ 	<insert id="insertRealEstateByRentPrice" parameterType="map">
+ 	INSERT INTO `real_estate`
+ 		(
+ 			`realtorId`
+			,`address`
+			,`area`
+			,`type`
+			,`price`
+			,`rentPrice`
+			,`createdAt`
+			,`updatedAt`
+ 		)
+ 		VALUES
+ 		(
+ 			#{realtorId}
+ 			,#{address}
+ 			,#{area}
+ 			,#{type}
+ 			,#{price}
+ 			,#{rentPrice}
+ 			,NOW()
+ 			,NOW()
+ 		)
+ 	</insert>
+ 	
+ 	<!-- lesson03 quiz03 - update -->
+ 	<update id="updateRealEstateById" parameterType="map">
+ 		UPDATE `real_estate`
+ 		SET
+ 			`type` = #{type}
+ 			, `price` = #{price}
+ 			, `updatedAt` = NOW()
+		WHERE
+			`id`= #{id} 		
+ 	</update>
+ </mapper>

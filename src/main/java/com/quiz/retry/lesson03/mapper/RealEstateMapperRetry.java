@@ -39,4 +39,7 @@ public interface RealEstateMapperRetry {
 			@Param("type") String type, 
 			@Param("price") int price
 			);
+	
+	// quiz04
+	public int deleteRealEstateRetryById(int id);
 }

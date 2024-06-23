@@ -48,4 +48,9 @@ public class RealEstateServiceRetry {
 	public int updateRealEstateRetry(int id, String type, int price) {
 		return realEstateMapperRetry.updateRealEstateRetry(id, type, price);
 	}
+	
+	// quiz04
+	public int deleteRealEstateRetryById(int id) {
+		return realEstateMapperRetry.deleteRealEstateRetryById(id);
+	}
 }

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="com.quiz.retry.lesson02.mapper.StoreMapperRetry2">
+ 	<!-- lesson02 quiz01 select -->
+ 	<select id="selectStore" parameterType="List" resultType="com.quiz.retry.lesson02.domain.StoreRetry2">
+ 		SELECT
+ 			`id`
+ 			,`name`
+			,`phoneNumber`
+			,`address`
+			,`businessNumber`
+			,`introduce`
+			,`createdAt`
+			,`updatedAt`
+ 		FROM
+ 			`store` 	
+ 	</select>
+ </mapper>
