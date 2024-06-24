@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -21,7 +22,7 @@ public class Lesson05QuizController {
 
 	// httP://localhost:8080/lesson05/quiz02
 	@GetMapping("/quiz02")
-	public String quiz02() {
+	public String quiz02(Model model) {
 		// quiz02_1
 		List<String> musicRanking = new ArrayList<>();
 		musicRanking.add("강남스타일");
@@ -29,7 +30,11 @@ public class Lesson05QuizController {
 		musicRanking.add("좋은날");
 		musicRanking.add("거짓말");
 		musicRanking.add("보고싶다");
+		
+		// model에 담기
+		model.addAttribute("musicList", musicRanking);
 
+		////////////////////////////////
 		// quiz02_2
 		List<Map<String, Object>> membership = new ArrayList<>();
 
@@ -67,7 +72,10 @@ public class Lesson05QuizController {
 		member5.put("grade", "BASIC");
 		member5.put("point", 420);
 		membership.add(member5);
-
+		
+		// model에 담기
+		model.addAttribute("memberList", membership);
+		
 		// 최종 화면
 		return "lesson05/quiz02";
 	}
