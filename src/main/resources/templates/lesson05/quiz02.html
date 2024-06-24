@@ -17,7 +17,7 @@
 				<th>제목</th>
 			</thead>
 			<tr th:each="music, status : ${musicList}">
-				<th th:text="${status.index}">순위</th>
+				<th th:text="${status.count}">순위</th>
 				<td th:text="${music}">제목</td>
 			</tr>
 		</table>

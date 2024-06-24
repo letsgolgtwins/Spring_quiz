@@ -123,4 +123,12 @@
 		WHERE
 			`id`= #{id} 		
  	</update>
+ 	
+ 	<!-- lesson03 quiz04 - delete -->
+ 	<delete id="deleteRealEstateById" parameterType="int">
+ 		DELETE FROM
+ 			`real_estate`
+ 		WHERE
+ 			`id` = #{id}
+ 	</delete>
  </mapper>

@@ -11,7 +11,7 @@ import com.quiz.retry.lesson03.Service.RealEstateServiceRetry;
 
 @RequestMapping("/retry/lesson03/quiz01")
 @RestController
-public class Lesson04Quiz04RestControllerRetry {
+public class Lesson03Quiz04RestControllerRetry {
 
 	@Autowired
 	private RealEstateServiceRetry realEstateServiceRetry;
