@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="utf-8">
+    <title>날씨 입력</title>
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+
+	<style>
+		.contentsLeft {min-height: 600px}
+		.contentsRight {min-height: 600px}	
+		footer {min-height: 100px}
+		.nav-item, .notice {font-size: 20px; font-weight: bold;}
+		.logo {width: 120px; height: 60px}
+		.notice {height: 80px}
+		.contentsBottomLeft {height:520px; width: 120px}
+		.contentsBottomRight {height: 520px; width: 900px}
+	</style>
+</head>
+<body>
+	<div id="wrap">
+		<div class="d-flex">
+			<section class="contentsLeft bg-primary col-2">
+				<div class="d-flex justify-content-center">
+					<img class="logo pt-3" alt="기상청 로고" src="/img/ci_20160630/2 기상청_한글_좌우.jpg">
+				</div>
+				<ul class="nav flex-column text-white font-weight-bold pt-4">
+				  <li class="nav-item pl-2">날씨</li>
+				  <li class="nav-item pl-2 pt-2">날씨입력</li>
+				  <li class="nav-item pl-2 pt-2">테마날씨</li>
+				  <li class="nav-item pl-2 pt-2">관측 기후</li>
+				</ul>
+			</section>
+			<section class="contentsRight pl-0 pr-0 col-10">
+				<h4 class="ml-5">과거 날씨</h4>
+				<table class="table pl-3 pr-3 text-center">
+					<thead>
+						<th>날짜</th>
+						<th>날씨</th>
+						<th>기온</th>
+						<th>강수량</th>
+						<th>미세먼지</th>
+						<th>풍속</th>
+					</thead>
+					<tr th:each="result2 : ${result}">
+						<td th:text="${#temporals.format(result2.date, 'yyyy년 M월 d일')}">날짜</td>
+						
+						<!-- if문 말고 switch case문으로 다시 try -->
+						<th:block th:if="${result2.weather} == '맑음'">
+							<td><img th:src="@{/img/sunny.jpg}" alt="맑음 사진"></td>
+						</th:block>
+						<th:block th:if="${result2.weather} == '흐림'">
+							<td><img th:src="@{/img/clody.jpg}" alt="흐림 사진"></td>
+						</th:block>
+						<th:block th:if="${result2.weather} == '구름조금'">
+							<td><img th:src="@{/img/partly.jpg}" alt="구름조금 사진"></td>
+						</th:block>
+						<th:block th:if="${result2.weather} == '비'">
+							<td><img th:src="@{/img/rainy.jpg}" alt="비 사진"><td>
+						</th:block>
+						<th:block th:if="${result2.weather != '맑음' and result2.weather != '흐림' and result2.weather != '구름조금' and result2.weather != '비'}">
+							<span th:case="*" th:text=""></span>
+						</th:block>
+						
+						
+						<td th:text="${result2.temperatures} + '°C'">기온</td>
+						<td th:text="${result2.precipitation} + 'mm'">강수량</td>
+						<td th:text="${result2.microDust}">미세먼지</td>
+						<td th:text="${result2.windSpeed} + 'km/h'">풍속</td>
+					</tr>
+				</table>
+			</section>
+		</div>
+		<footer class="d-flex bg-warning">
+			<img class="logo pl-3 pr-3 pt-3" alt="기상청 로고" src="/img/ci_20160630/2 기상청_한글_좌우.jpg">
+			<div class="text-secondary mt-3">
+				<div>(07062) 서울시 동작구 여의대방로16길 61</div>
+				<div>Copyright@ 20XX KMA. All Rights RESERVED.</div>
+			</div>
+		</footer>
+	</div>
+</body>
+</html>
