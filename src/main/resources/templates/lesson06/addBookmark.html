@@ -24,8 +24,8 @@
 		// joinBtn 클릭 이벤트
 		$("#joinBtn").on('click', function() {
 			// validation
-			let name = $("#name").value().trim();
-			let url = $("#url").value().trim();
+			let name = $("#name").val().trim();
+			let url = $("#url").val().trim();
 			
 			// 모든 칸에 입력되었는지 alert
 			if (!name) {
@@ -37,7 +37,7 @@
 			}
 			
 			// http 또는 https까지 모두 사용됐는지
-			if (url.startsWith("http") || url.startsWith("https") ) {
+			if (!url.startsWith("http") || !url.startsWith("https") ) {
 				alert("링크 앞부분에 http혹은 https를 입력하세요.");
 				return;
 			}
@@ -46,9 +46,25 @@
 			console.log(name);
 			console.log(url);
 			
-			// AJAX 연결
-			
-			
+			// AJAX 통신 & 서버에 요청
+			$.ajax({
+				// request
+				type:"POST"
+				, url:"/lesson06/add-bookmark" // post매핑 주소
+				, data:{"name":name, "url":url} // request parameter명:변수명
+				
+				// response
+				, success:function(data) {
+					if (data == "성공ㅋㅋ") {
+						location.href = "/lesson06/after-add-bookmark" // 최종 목적지 화면 getmapping 주소
+					}
+				}
+				,error:function(xhr, status, error) {
+					alert(xhr);	
+					alert(status);	
+					alert(error);	
+				}
+			}); // AJAX 끝.
 		}); // joinBtn 클릭 이벤트 끝.
 	}); // ready 함수 끝.
 </script>

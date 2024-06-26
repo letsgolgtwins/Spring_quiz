@@ -17,11 +17,13 @@
 				<th>이름</th>
 				<th>주소</th>
 			</thead>
-			<tr th:each="내가지을이름, status : ${model이름}">
-				<td th:text="status.count">No</td>
-				<td th:text="내가지을이름.name">이름</td>
-				<td th:text="내가지을이름.url">주소</td>
+			<tbody>
+			<tr th:each="result, status : ${result}">
+				<td th:text="${status.index + 1}">No</td>
+				<td th:text="${result.name}">이름</td>
+				<td th:text="${result.url}">주소</td>
 			</tr>
+			</tbody>
 		</table>
 	</div>
 </body>
