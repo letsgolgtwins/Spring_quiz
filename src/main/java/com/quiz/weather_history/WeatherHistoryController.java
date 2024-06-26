@@ -20,13 +20,6 @@ public class WeatherHistoryController {
 	@Autowired
 	private WeatherHistoryBO weatherHistoryBO;
 	
-	// 추가하는 화면
-	// http://localhost:8080/weather-history/add-weather-view
-	@GetMapping("/add-weather-view")
-	public String AddWeatherView() {
-		return "weather_history/addWeather";
-	}
-	
 	// 날씨 리스트 화면
 	// http://localhost:8080/weather-history/weather-list-view
 	@GetMapping("/weather-list-view")
@@ -41,6 +34,12 @@ public class WeatherHistoryController {
 		return "weather_history/weatherList";
 	}
 	
+	// 추가하는 화면
+	// http://localhost:8080/weather-history/add-weather-view
+	@GetMapping("/add-weather-view")
+	public String AddWeatherView() {
+		return "weather_history/addWeather";
+	}
 	
 	// db에 insert
 	@PostMapping("/add-weather-history")
