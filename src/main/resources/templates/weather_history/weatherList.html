@@ -26,11 +26,19 @@
 				<div class="d-flex justify-content-center">
 					<img class="logo pt-3" alt="기상청 로고" src="/img/ci_20160630/2 기상청_한글_좌우.jpg">
 				</div>
-				<ul class="nav flex-column text-white font-weight-bold pt-4">
-				  <li class="nav-item pl-2">날씨</li>
-				  <li class="nav-item pl-2 pt-2">날씨입력</li>
-				  <li class="nav-item pl-2 pt-2">테마날씨</li>
-				  <li class="nav-item pl-2 pt-2">관측 기후</li>
+				<ul class="nav flex-column font-weight-bold pt-4">
+				  <li class="nav-item pl-2">
+				  	<a href="/weather-history/weather-list-view" class="nav-link menu-font text-white">날씨</a>
+				  </li>
+				  <li class="nav-item pl-2 pt-2">
+				  	<a href="/weather-history/add-weather-view" class="nav-link menu-font text-white">날씨입력</a>
+				  </li>
+				  <li class="nav-item pl-2 pt-2">
+				  	<a href="#" class="nav-link menu-font text-white">테마날씨</a>
+				  </li>
+				  <li class="nav-item pl-2 pt-2">
+				  	<a href="#" class="nav-link menu-font text-white">관측 기후</a>
+				  </li>
 				</ul>
 			</section>
 			<section class="contentsRight pl-0 pr-0 col-10">
@@ -48,22 +56,13 @@
 						<td th:text="${#temporals.format(result2.date, 'yyyy년 M월 d일')}">날짜</td>
 						
 						<!-- if문 말고 switch case문으로 다시 try -->
-						<th:block th:if="${result2.weather} == '맑음'">
-							<td><img th:src="@{/img/sunny.jpg}" alt="맑음 사진"></td>
-						</th:block>
-						<th:block th:if="${result2.weather} == '흐림'">
-							<td><img th:src="@{/img/clody.jpg}" alt="흐림 사진"></td>
-						</th:block>
-						<th:block th:if="${result2.weather} == '구름조금'">
-							<td><img th:src="@{/img/partly.jpg}" alt="구름조금 사진"></td>
-						</th:block>
-						<th:block th:if="${result2.weather} == '비'">
-							<td><img th:src="@{/img/rainy.jpg}" alt="비 사진"><td>
-						</th:block>
-						<th:block th:if="${result2.weather != '맑음' and result2.weather != '흐림' and result2.weather != '구름조금' and result2.weather != '비'}">
-							<span th:case="*" th:text=""></span>
-						</th:block>
-						
+						<td th:switch="${result2.weather}">
+							<img th:case="'맑음'" src="/img/sunny.jpg" alt="맑음이미지">
+							<img th:case="'비'" src="/img/rainy.jpg" alt="비이미지">
+							<img th:case="'구름조금'" src="/img/partlyCloudy.jpg" alt="구름조금이미지">
+							<img th:case="'흐림'" src="/img/cloudy.jpg" alt="흐림이미지">
+							<span th:case="*" th:text="${result.weather}"></span>
+						</td>
 						
 						<td th:text="${result2.temperatures} + '°C'">기온</td>
 						<td th:text="${result2.precipitation} + 'mm'">강수량</td>

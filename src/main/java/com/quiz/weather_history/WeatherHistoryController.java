@@ -27,10 +27,11 @@ public class WeatherHistoryController {
 		return "weather_history/addWeather";
 	}
 	
-	// 리스트 화면
+	// 날씨 리스트 화면
 	// http://localhost:8080/weather-history/weather-list-view
 	@GetMapping("/weather-list-view")
 	public String WeatherListView(Model model) {
+		// select from db
 		List<WeatherHistory> resultList = weatherHistoryBO.getWeatherHistory();				
 		
 		// model에 담기
@@ -41,7 +42,7 @@ public class WeatherHistoryController {
 	}
 	
 	
-	// db에 insert & select
+	// db에 insert
 	@PostMapping("/add-weather-history")
 	public String WeatherHistory(
 			WeatherHistory weatherHistory) {
@@ -49,7 +50,8 @@ public class WeatherHistoryController {
 		weatherHistoryBO.addWeatherHistory(weatherHistory);
 		
 		// 최종화면 
-		return "redirect:weather_history/weatherList";
+		return "redirect:/weather-history/weather-list-view";
+		
 	}
 	
 }
