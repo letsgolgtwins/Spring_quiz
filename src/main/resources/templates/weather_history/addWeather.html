@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
-
+    
 	<style>
 		.contentsLeft {height: 600px}
 		.contentsRight {height: 600px}	
@@ -43,16 +43,16 @@
 				</ul>
 			</section>
 			<section class="contentsRight pl-0 pr-0 col-10">
-				<div class="notice d-flex bg-danger align-items-center pl-5">날씨 입력</div>
+				<div class="notice d-flex align-items-center pl-5">날씨 입력</div>
 				<div class="d-flex">	
-				<div class="contentsBottomLeft bg-success"></div>
-				<div class="contentsBottomRight bg-info">
+				<div class="contentsBottomLeft"></div>
+				<div class="contentsBottomRight">
 					<form action="/weather-history/add-weather-history" method="post">
 						<div class="d-flex">
 						
 							<div class="form-group d-flex mr-5">
 								<label class="d-flex align-items-center" for="date">날짜</label>
-								<input type="text" name="date" class="form-control">
+								<input type="text" id="date" name="date" class="form-control">
 							</div>
 						 
 							
@@ -106,7 +106,7 @@
 				</div>
 			</section>
 		</div>
-		<footer class="d-flex bg-warning">
+		<footer class="d-flex">
 			<img class="logo pl-3 pr-3 pt-3" alt="기상청 로고" src="/img/ci_20160630/2 기상청_한글_좌우.jpg">
 			<div class="text-secondary mt-3">
 				<div>(07062) 서울시 동작구 여의대방로16길 61</div>

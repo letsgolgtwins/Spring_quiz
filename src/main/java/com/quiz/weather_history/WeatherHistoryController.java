@@ -48,7 +48,7 @@ public class WeatherHistoryController {
 		// db에 insert
 		weatherHistoryBO.addWeatherHistory(weatherHistory);
 		
-		// 최종화면 
+		// 최종화면 redirect => 날씨 목록
 		return "redirect:/weather-history/weather-list-view";
 		
 	}
