@@ -23,4 +23,9 @@ public class BookMarkBO {
 	public List<BookMark> getBookMarkList() {
 		return bookMarkMapper.selectBookMarkList();
 	}
+	
+	// boolean 
+	public boolean isDuplicateByUrl(String url) {
+		return bookMarkMapper.isDuplicateByUrl(url);
+	}
 }

@@ -65,4 +65,9 @@ public class Lesson06Controller {
 		// 최종 화면
 		return "lesson06/afterBookmark";
 	}
+	
+	// 0627 저녁 코딩때 추가한 내용
+	@ResponseBody
+	@GetMapping("")
+	public 
 }

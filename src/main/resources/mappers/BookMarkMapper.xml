@@ -32,4 +32,13 @@
 		FROM 
 			`bookmark`
 	</select>
+	
+	<!-- lesson06 quiz02 url 들어왔는지 여부 boolean  -->
+	<!-- 0이면 false, 0이 아니면(중복이 있는셈) true -->
+	<select id="isDuplicateByUrl" parameterType="String" resultType="boolean">
+		SELECT COUNT(*) FROM
+			`bookmark`
+		WHERE
+			`url` = #{url}	
+	</select>
  </mapper>

@@ -14,13 +14,13 @@
 		<label for="name">제목</label>
 		<input type="text" id="name" name="name" class="form-control mb-3">
 		<label for="url">주소</label>
-		<div class="d-flex">
+		<span class="d-flex">
 			<input type="text" id="url" name="url" class="form-control mb-3">
 			<input type="button" id="nameCheckBtn" value="중복확인" class="btn btn-info form-control col-2 ml-3">
-		</div>
+		</span>
 		
 		<small id="nameStatusArea"></small>
-		<input type="button" value="추가" id="joinBtn" class="btn btn-success col-12">
+		<input type="button" value="추가" id="joinBtn" class="btn btn-success col-12 mt-3">
 	</div>
 </body>
 
@@ -75,18 +75,39 @@
 			}); // AJAX 끝.
 		}); // joinBtn (추가 버튼) 클릭 이벤트 끝.
 		
+		// 내일 여기서 부터 다시 볼 것.
+		// 근데 nameChectBtn 클릭 이벤트 끝난 후에 원래 1번 문제처럼 테이블있는 html화면으로 뿌려줘야 하나? 
+		// 문제에는 일단 중복 여부만 표시하라고 되어 있긴 한데, 그럼 success 에 location href 만 안쓰면 되는 건가?
+		// 아, joinBtn 이랑 nameCheckBtn이랑 아예 다른 버튼이구나. 즉, 가입 버튼이랑 url중복 여부 체크 버튼은 그냥 전혀 상관, 연관 없는 두 별개의 버튼 
 		// nameCheckBtn (중복확인) 버튼 클릭 이벤트
 		$("#nameCheckBtn").on('click', function() {
 			// alert("중복확인 버튼 클릭 확인"); 중간 점검
 			
+			// nameStatusArea 초기화
+			$("#nameStatusArea").empty(); // 자식 태그 모두 비워냄
+			
 			// validation
 			let url = $("#url").val().trim();
 			if (!url) {
-				// 여기서 부터 계속 이어가면 된다. ->
+				$("#nameStatusArea").append('<span class="text-danger font-weight-bold">url이 비어있습니다.</span>');
+				return;
 			}
 			
-			
-			
+			$.ajax({
+				// request
+				type: "post"
+				, url: "/lesson06/add-bookmark"
+				, data: {"name":name, "url":url}
+				
+				// response
+				, success:function(data) {
+					
+				}
+				, error:function(xhr, status, error) {
+					alert("url 중복확인에 실패하였습니다.");
+				}
+				
+			}); // AJAX 끝.
 		}); // nameCheckBtn 버튼 클릭 이벤트 끝.
 	}); // ready 함수 끝.
 </script>

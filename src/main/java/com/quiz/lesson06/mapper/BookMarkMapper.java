@@ -18,4 +18,7 @@ public interface BookMarkMapper {
 	
 	// select
 	public List<BookMark> selectBookMarkList();
+	
+	// boolean
+	public boolean isDuplicateByUrl(String url);
 }
