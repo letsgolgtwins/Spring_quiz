@@ -1,6 +1,8 @@
 package com.quiz.lesson06;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,7 +34,7 @@ public class Lesson06Controller {
 	// /lesson06/add-bookmark
 	@ResponseBody
 	@PostMapping("/add-bookmark")
-	public String addBookMark(
+	public Map<String, Object> /*String*/ addBookMark(
 			@RequestParam("name") String name,
 			@RequestParam("url") String url /*, Model model*/) {
 		
@@ -40,7 +42,14 @@ public class Lesson06Controller {
 		bookMarkBO.addBookMark(name, url);
 
 		// 응답값. 추후 사용
-		return "성공ㅋㅋ";
+		/*return "성공ㅋㅋ"; */
+		
+		// 성공 여부에 대한 JSON
+		// {"code":200, "result":"성공!"}
+		Map<String, Object> result = new HashMap<>();
+		result.put("code", 200);
+		result.put("result", "성공!");
+		return result; // JSON String
 	}
 	
 	// http://localhost:8080/lesson06/after-add-bookmark
@@ -48,7 +57,7 @@ public class Lesson06Controller {
 	public String afterAddBookMark(Model model) {
 
 		// select
-		List<BookMark> bookmarks = bookMarkBO.getBookMark();
+		List<BookMark> bookmarks = bookMarkBO.getBookMarkList();
 		
 		// model에 담기
 		model.addAttribute("result", bookmarks);

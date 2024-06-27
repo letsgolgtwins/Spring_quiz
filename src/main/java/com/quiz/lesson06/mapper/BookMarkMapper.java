@@ -17,5 +17,5 @@ public interface BookMarkMapper {
 			);
 	
 	// select
-	public List<BookMark> selectBookMark();
+	public List<BookMark> selectBookMarkList();
 }

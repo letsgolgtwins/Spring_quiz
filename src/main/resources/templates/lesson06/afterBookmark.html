@@ -19,9 +19,11 @@
 			</thead>
 			<tbody>
 			<tr th:each="result, status : ${result}">
-				<td th:text="${status.index + 1}">No</td>
+				<td th:text="${result.id}">No</td>
 				<td th:text="${result.name}">이름</td>
-				<td th:text="${result.url}">주소</td>
+				<td>
+					<a th:href="${result.url}" th:text="${result.url}"></a>
+				</td>
 			</tr>
 			</tbody>
 		</table>

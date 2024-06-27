@@ -22,7 +22,7 @@
 	</insert>
 	
 	<!-- lesson06 quiz01 select -->
-	<select id="selectBookMark" resultType="com.quiz.lesson06.domain.BookMark">
+	<select id="selectBookMarkList" resultType="com.quiz.lesson06.domain.BookMark">
 		SELECT
 			`id`
 			,`name`

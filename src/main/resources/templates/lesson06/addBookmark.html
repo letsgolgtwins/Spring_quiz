@@ -14,7 +14,12 @@
 		<label for="name">제목</label>
 		<input type="text" id="name" name="name" class="form-control mb-3">
 		<label for="url">주소</label>
-		<input type="text" id="url" name="url" class="form-control mb-3">
+		<div class="d-flex">
+			<input type="text" id="url" name="url" class="form-control mb-3">
+			<input type="button" id="nameCheckBtn" value="중복확인" class="btn btn-info form-control col-2 ml-3">
+		</div>
+		
+		<small id="nameStatusArea"></small>
 		<input type="button" value="추가" id="joinBtn" class="btn btn-success col-12">
 	</div>
 </body>
@@ -24,7 +29,7 @@
 		// joinBtn 클릭 이벤트
 		$("#joinBtn").on('click', function() {
 			// validation
-			let name = $("#name").val().trim();
+			let name = $("#name").val().trim(); 
 			let url = $("#url").val().trim();
 			
 			// 모든 칸에 입력되었는지 alert
@@ -36,8 +41,9 @@
 				return;
 			}
 			
-			// http 또는 https까지 모두 사용됐는지
-			if (!url.startsWith("http") || !url.startsWith("https") ) {
+			// http도 아니고 https도 아니면 alert을 띄움
+			// * 근데, httpaaa 나 httpsaa를 할 수도 있으니, http:// , https://로 해준다
+			if (!url.startsWith("http://") && !url.startsWith("https://") ) {
 				alert("링크 앞부분에 http혹은 https를 입력하세요.");
 				return;
 			}
@@ -46,26 +52,42 @@
 			console.log(name);
 			console.log(url);
 			
-			// AJAX 통신 & 서버에 요청
+			// AJAX 통신 => 서버에 요청
 			$.ajax({
 				// request
 				type:"POST"
 				, url:"/lesson06/add-bookmark" // post매핑 주소
 				, data:{"name":name, "url":url} // request parameter명:변수명
 				
-				// response
-				, success:function(data) {
-					if (data == "성공ㅋㅋ") {
+				// response 
+				// callback 함수 (일종의 예언인셈. 나중에 response가 오면 이렇게 할 것이다~)
+				, success:function(data) { // data => JSON String => JQuery AJAX함수가 parsing 해줌 => js dictionary
+					// {"code":200, "result":"성공!"} data가 넘어올때는 이렇게 String을 parsing한 Object의 상태로 온다.
+
+					if (data.result == "성공!") { // 또는 data.code=200
+						// 목록 화면으로 이동 -  GET Method 요청
 						location.href = "/lesson06/after-add-bookmark" // 최종 목적지 화면 getmapping 주소
 					}
 				}
 				,error:function(xhr, status, error) {
-					alert(xhr);	
-					alert(status);	
-					alert(error);	
+					alert("데이터를 전송하는데 실패했습니다.");		
 				}
 			}); // AJAX 끝.
-		}); // joinBtn 클릭 이벤트 끝.
+		}); // joinBtn (추가 버튼) 클릭 이벤트 끝.
+		
+		// nameCheckBtn (중복확인) 버튼 클릭 이벤트
+		$("#nameCheckBtn").on('click', function() {
+			// alert("중복확인 버튼 클릭 확인"); 중간 점검
+			
+			// validation
+			let url = $("#url").val().trim();
+			if (!url) {
+				// 여기서 부터 계속 이어가면 된다. ->
+			}
+			
+			
+			
+		}); // nameCheckBtn 버튼 클릭 이벤트 끝.
 	}); // ready 함수 끝.
 </script>
 </html>

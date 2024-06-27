@@ -20,7 +20,7 @@ public class BookMarkBO {
 	}
 	
 	// select
-	public List<BookMark> getBookMark() {
-		return bookMarkMapper.selectBookMark();
+	public List<BookMark> getBookMarkList() {
+		return bookMarkMapper.selectBookMarkList();
 	}
 }
