@@ -26,7 +26,13 @@
 			<input type="text" id="url" name="url" class="form-control mb-3"> 
 			<input type="button" id="urlCheckBtn" value="중복확인" class="btn btn-info form-control col-2 ml-3">
 		</span> 
-		<small id="nameStatusArea"></small> 
+		
+		<!-- 선생님 풀이 - d-none으로 숨기거나 노출시키거나 하는 방법 -->
+		<small id="duplicationText" class="d-none text-danger font-weight-bold">중복된 url 입니다!</small>
+		<small id="availableText" class="d-none text-success font-weight-bold">저장 가능한 url 입니다!</small>
+		
+		<!-- 내 풀이 - 예제 방식 -->
+		<small id="nameStatusArea" class="mt-4"></small> 
 		<input type="button" value="추가" id="joinBtn" class="btn btn-success col-12 mt-3">
 	</div>
 </body>
@@ -100,22 +106,33 @@
 				return;
 			}
 			
-			// DB에서 AJAX 중복확인 (현시점 제일 어려운 부분)
+			// DB에서 AJAX 중복여부 확인 (현시점 제일 어려운 부분)
 			$.ajax({
 				// request
-				type: "post"
-				, url: "/lesson06/check-duplicate"
+				type: "post" // url은 특성상 매우 길 수도 있다. 긴 데이터를 보낼 땐, post
+				, url: "/lesson06/check-duplicate" // 서버의 주소
 				, data: {"url":url}
 				
-				// response
+				// response callback 
+				// {"code":200, "is_Duplication":true}
 				, success:function(data) {
-					if (data.yesDuplicate) { // true 즉, count가 0이 아닌 경우 = 겹치는 url이 있는 경우.
+					if (data.is_Duplication) { // true 즉, count가 0이 아닌 경우 = 겹치는 url이 있는 경우.
+						// 선생님 풀이
+						$("#duplicationText").removeClass("d-none");
+						$("#availableText").addClass("d-none"); 
+						
+						// 내 풀이
 						$("#nameStatusArea").append('<span class="text-danger font-weight-bold">중복된 url 입니다.</span>');					
 					} else { // false 즉, count가 0 = 겹치는 url이 없는 경우.
+						// 선생님 풀이
+						$("#duplicationText").addClass("d-none");
+						$("#availableText").removeClass("d-none");
+						
+						// 내 풀이
 						$("#nameStatusArea").append('<span class="text-danger font-weight-bold">저장 가능한 url 입니다.</span>')
 					}
 				}
-				, error:function(xhr, status, error) {
+				, error:function(error) {
 					alert("url 중복확인에 실패하였습니다.");
 				}
 			}); // AJAX 끝.

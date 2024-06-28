@@ -26,7 +26,12 @@
 					<a th:href="${result.url}" th:text="${result.url}"></a>
 				</td>
 				<td>
-					<input type="submit" value="삭제" id="deleteBtn" class="deleteBtn btn btn-danger">
+					<!-- 1) value로 값 넣기(단 이땐 input말고 button으로 해야됨 -->
+					<!-- <button type="button" th:value="${result.id}" class="deleteBtn btn btn-danger">삭제</button> -->
+					
+					<!-- 2) data로 값 넣기(권장) -->
+					<!-- th:data-내가 지은 키이름="이엘" 대문자 사용 금지 -->
+					<button type="button" th:data-bookmark-id="${result.id}" class="deleteBtn btn btn-danger">삭제</button>
 				</td>
 			</tr>
 			</tbody>
@@ -39,7 +44,50 @@
 		
 		// deleteBtn삭제 버튼 클릭 이벤트 (힌트: id 말고 클래스로 할 것)
 		$('.deleteBtn').on('click', function() {
+			// alert("중간 점검");
 			
+			//let id = $('.deleteBtn').val();
+			//alert(id); // 이럴 경우 제일 위의 id 1만 뜨게 된다.
+			
+			// 1) value로 가져오기
+			// 첫 번째 방법
+			//let id = $(this).val();
+			//alert(id);
+			
+			// 두번째 방법
+			//let id = $(this).attr("value");
+			//alert(id);
+			
+			// 세 번쨰 방법 (이거 에러 떳었다. 집가서 재확인)
+			//let id = e.target.value;
+			//alert(id);
+			
+			// 2) data로 가져오기
+			// 태그에 이름 짓기: data-bookmark-id
+			// 스크립트에서 꺼내기 : .data("bookmark-id")
+			let id = $(this).data("bookmark-id");
+			// alert(id); 확인
+			
+			$.ajax({
+				// request
+				type:"delete"
+				,url:"/lesson06/delete-bookmark"
+				,data: {"id":id}
+				// response
+				, success:function(data) {
+					if (data.code == 200) {
+						// 삭제 성공일 때
+						location.reload(); // 만약에 안먹힐 시, ()안에 true를 넣어볼 것.
+					} else if (data.code == 500) {
+						// 삭제 실패일 때 = 즉 삭제 할 게 없는 경우 (로직상의 에러)
+						alert(data.error_message); // 컨트롤러의 키 이름 error_message의 벨류값을 그대로 출력
+					}
+				}
+				, error:function(error) {
+					// 이 경우는 아예 에러가 난 경우. 실제 개발적인 에러
+					alert("삭제하는데 실패했습니다.");
+				}
+			}); // AJAX 끝.
 		}); // deleteBtn 삭제버튼 클릭 이벤트 끝.
 		
 	}); // ready함수 끝.

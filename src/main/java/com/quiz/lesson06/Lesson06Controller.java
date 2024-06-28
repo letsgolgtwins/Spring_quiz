@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -52,7 +53,7 @@ public class Lesson06Controller {
 		return result; // JSON String
 	}
 	
-	// AJAX 중복확인
+	// AJAX 에서 url 중복확인
 	@ResponseBody
 	@PostMapping("/check-duplicate")
 	public Map<String, Object> checkDuplicate(
@@ -64,7 +65,7 @@ public class Lesson06Controller {
 		// JSON
 		Map<String, Object> result2 = new HashMap<>();
 		result2.put("data", 200);
-		result2.put("yesDuplicate", isDuplicate);
+		result2.put("is_Duplication", isDuplicate);
 			
 		return result2;
 	}
@@ -81,6 +82,29 @@ public class Lesson06Controller {
 		
 		// 최종 화면
 		return "lesson06/afterBookmark";
+	}
+	
+	// 2. 삭제 AJAX 요청 - id로 삭제
+	// http://localhost:8080/lesson06/delete-bookmark?id=46
+	@ResponseBody
+	@DeleteMapping("/delete-bookmark") 
+	public Map<String, Object> deleteBookmark(
+			@RequestParam("id") int id) { // id로 삭제하는 것이기 떄문에 
+		
+		// db에서 delete
+		int rowCount = bookMarkBO.deleteBookMarkListById(id);
+		
+		// 응답 JSON
+		Map<String, Object> result = new HashMap<>();
+		if (rowCount > 0) { // 삭제 성공
+			result.put("code", 200);
+			result.put("result", "성공");			
+		} else { // 삭제 실패
+			result.put("code", 500);
+			result.put("error_message", "삭제할 항목이 존재하지 않습니다.");
+		}
+		
+		return result;
 	}
 	
 }

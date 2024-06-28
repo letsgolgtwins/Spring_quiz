@@ -19,9 +19,13 @@ public interface BookMarkMapper {
 	// select
 	public List<BookMark> selectBookMarkList();
 	
-	// boolean
-	public boolean isDuplicateByUrl(String url);
+	// 선생님 풀이 
+	// i: url / o: List<Bookmark>
+	public List<BookMark> selectBookmarkListByUrl(String url);
+	
+	// 내 풀이
+	// public boolean isDuplicateByUrl(String url);
 	
 	// delete
-	public int deleteBookMarkList();
+	public int deleteBookMarkListById(int id);
 }

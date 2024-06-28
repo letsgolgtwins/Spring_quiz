@@ -24,13 +24,21 @@ public class BookMarkBO {
 		return bookMarkMapper.selectBookMarkList();
 	}
 	
-	// boolean 
+	// 선생님 풀이
 	public boolean isDuplicateByUrl(String url) {
-		return bookMarkMapper.isDuplicateByUrl(url);
+		// 중복일 경우 - [bookmark1, bookmark2] 
+		// 중복이 아닐 경우 - [] 비어있는 리스트
+		List<BookMark> bookmarkList = bookMarkMapper.selectBookmarkListByUrl(url);
+		return bookmarkList.isEmpty() ? false : true; // 삼항 연산자 (if문으로 해도됨)
 	}
 	
+	// 내 풀이 boolean - i: url / o: boolean
+	// public boolean isDuplicateByUrl(String url) {
+	//	return bookMarkMapper.isDuplicateByUrl(url);
+	// }
+	
 	// delete
-	public int deleteBookMarkList() {
-		return bookMarkMapper.deleteBookMarkList();
+	public int deleteBookMarkListById(int id) {
+		return bookMarkMapper.deleteBookMarkListById(id);
 	}
 }
