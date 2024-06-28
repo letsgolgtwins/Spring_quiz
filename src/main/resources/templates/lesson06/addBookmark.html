@@ -1,25 +1,32 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="ko">
 <head>
-    <meta charset="utf-8">
-    <title>즐겨찾기 추가하기</title>
-    <!-- bootstrap -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+<meta charset="utf-8">
+<title>즐겨찾기 추가하기</title>
+<!-- bootstrap -->
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+	integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"
+	crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.7.1.js"
+	integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+	crossorigin="anonymous"></script>
 </head>
 <body>
 	<h3 class="container font-weight-bold">즐겨찾기 추가하기</h3>
 	<div class="container font-weight-bold">
-		<label for="name">제목</label>
-		<input type="text" id="name" name="name" class="form-control mb-3">
-		<label for="url">주소</label>
-		<span class="d-flex">
-			<input type="text" id="url" name="url" class="form-control mb-3">
-			<input type="button" id="nameCheckBtn" value="중복확인" class="btn btn-info form-control col-2 ml-3">
-		</span>
-		
-		<small id="nameStatusArea"></small>
+		<label for="name">제목</label> 
+		<input type="text" id="name" name="name" class="form-control mb-3"> 
+		<label for="url">주소</label> 
+		<span class="d-flex"> 
+			<input type="text" id="url" name="url" class="form-control mb-3"> 
+			<input type="button" id="urlCheckBtn" value="중복확인" class="btn btn-info form-control col-2 ml-3">
+		</span> 
+		<small id="nameStatusArea"></small> 
 		<input type="button" value="추가" id="joinBtn" class="btn btn-success col-12 mt-3">
 	</div>
 </body>
@@ -64,7 +71,7 @@
 				, success:function(data) { // data => JSON String => JQuery AJAX함수가 parsing 해줌 => js dictionary
 					// {"code":200, "result":"성공!"} data가 넘어올때는 이렇게 String을 parsing한 Object의 상태로 온다.
 
-					if (data.result == "성공!") { // 또는 data.code=200
+					if (data.code = 200) { // 또는 data.code=200
 						// 목록 화면으로 이동 -  GET Method 요청
 						location.href = "/lesson06/after-add-bookmark" // 최종 목적지 화면 getmapping 주소
 					}
@@ -76,11 +83,11 @@
 		}); // joinBtn (추가 버튼) 클릭 이벤트 끝.
 		
 		// 내일 여기서 부터 다시 볼 것.
-		// 근데 nameChectBtn 클릭 이벤트 끝난 후에 원래 1번 문제처럼 테이블있는 html화면으로 뿌려줘야 하나? 
+		// 근데 urlCheckBtn 클릭 이벤트 끝난 후에 원래 1번 문제처럼 테이블있는 html화면으로 뿌려줘야 하나? 
 		// 문제에는 일단 중복 여부만 표시하라고 되어 있긴 한데, 그럼 success 에 location href 만 안쓰면 되는 건가?
-		// 아, joinBtn 이랑 nameCheckBtn이랑 아예 다른 버튼이구나. 즉, 가입 버튼이랑 url중복 여부 체크 버튼은 그냥 전혀 상관, 연관 없는 두 별개의 버튼 
-		// nameCheckBtn (중복확인) 버튼 클릭 이벤트
-		$("#nameCheckBtn").on('click', function() {
+		// 아, joinBtn 이랑 urlCheckBtn이랑 아예 다른 버튼이구나. 즉, 가입 버튼이랑 url중복 여부 체크 버튼은 그냥 전혀 상관, 연관 없는 두 별개의 버튼 
+		// urlCheckBtn (중복확인) 버튼 클릭 이벤트
+		$("#urlCheckBtn").on('click', function() {
 			// alert("중복확인 버튼 클릭 확인"); 중간 점검
 			
 			// nameStatusArea 초기화
@@ -93,22 +100,26 @@
 				return;
 			}
 			
+			// DB에서 AJAX 중복확인 (현시점 제일 어려운 부분)
 			$.ajax({
 				// request
 				type: "post"
-				, url: "/lesson06/add-bookmark"
-				, data: {"name":name, "url":url}
+				, url: "/lesson06/check-duplicate"
+				, data: {"url":url}
 				
 				// response
 				, success:function(data) {
-					
+					if (data.yesDuplicate) { // true 즉, count가 0이 아닌 경우 = 겹치는 url이 있는 경우.
+						$("#nameStatusArea").append('<span class="text-danger font-weight-bold">중복된 url 입니다.</span>');					
+					} else { // false 즉, count가 0 = 겹치는 url이 없는 경우.
+						$("#nameStatusArea").append('<span class="text-danger font-weight-bold">저장 가능한 url 입니다.</span>')
+					}
 				}
 				, error:function(xhr, status, error) {
 					alert("url 중복확인에 실패하였습니다.");
 				}
-				
 			}); // AJAX 끝.
-		}); // nameCheckBtn 버튼 클릭 이벤트 끝.
+		}); // urlCheckBtn 버튼 클릭 이벤트 끝.
 	}); // ready 함수 끝.
 </script>
 </html>

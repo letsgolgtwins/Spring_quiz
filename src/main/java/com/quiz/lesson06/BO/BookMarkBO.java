@@ -28,4 +28,9 @@ public class BookMarkBO {
 	public boolean isDuplicateByUrl(String url) {
 		return bookMarkMapper.isDuplicateByUrl(url);
 	}
+	
+	// delete
+	public int deleteBookMarkList() {
+		return bookMarkMapper.deleteBookMarkList();
+	}
 }

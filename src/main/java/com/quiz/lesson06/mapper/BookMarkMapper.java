@@ -21,4 +21,7 @@ public interface BookMarkMapper {
 	
 	// boolean
 	public boolean isDuplicateByUrl(String url);
+	
+	// delete
+	public int deleteBookMarkList();
 }

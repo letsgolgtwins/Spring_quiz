@@ -43,13 +43,30 @@ public class Lesson06Controller {
 
 		// 응답값. 추후 사용
 		/*return "성공ㅋㅋ"; */
-		
+				
 		// 성공 여부에 대한 JSON
 		// {"code":200, "result":"성공!"}
 		Map<String, Object> result = new HashMap<>();
 		result.put("code", 200);
 		result.put("result", "성공!");
 		return result; // JSON String
+	}
+	
+	// AJAX 중복확인
+	@ResponseBody
+	@PostMapping("/check-duplicate")
+	public Map<String, Object> checkDuplicate(
+			@RequestParam("url") String url) {
+		
+		// boolean
+		boolean isDuplicate = bookMarkBO.isDuplicateByUrl(url);
+		
+		// JSON
+		Map<String, Object> result2 = new HashMap<>();
+		result2.put("data", 200);
+		result2.put("yesDuplicate", isDuplicate);
+			
+		return result2;
 	}
 	
 	// http://localhost:8080/lesson06/after-add-bookmark
@@ -66,8 +83,4 @@ public class Lesson06Controller {
 		return "lesson06/afterBookmark";
 	}
 	
-	// 0627 저녁 코딩때 추가한 내용
-	@ResponseBody
-	@GetMapping("")
-	public 
 }

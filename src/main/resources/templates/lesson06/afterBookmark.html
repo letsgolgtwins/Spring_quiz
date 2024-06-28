@@ -16,6 +16,7 @@
 				<th>No</th>
 				<th>이름</th>
 				<th>주소</th>
+				<th></th>
 			</thead>
 			<tbody>
 			<tr th:each="result, status : ${result}">
@@ -24,9 +25,23 @@
 				<td>
 					<a th:href="${result.url}" th:text="${result.url}"></a>
 				</td>
+				<td>
+					<input type="submit" value="삭제" id="deleteBtn" class="deleteBtn btn btn-danger">
+				</td>
 			</tr>
 			</tbody>
 		</table>
 	</div>
 </body>
+
+<script>
+	$(document).ready(function() {
+		
+		// deleteBtn삭제 버튼 클릭 이벤트 (힌트: id 말고 클래스로 할 것)
+		$('.deleteBtn').on('click', function() {
+			
+		}); // deleteBtn 삭제버튼 클릭 이벤트 끝.
+		
+	}); // ready함수 끝.
+</script>
 </html>
