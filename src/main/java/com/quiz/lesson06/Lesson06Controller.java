@@ -70,6 +70,7 @@ public class Lesson06Controller {
 		return result2;
 	}
 	
+	// 최종화면 
 	// http://localhost:8080/lesson06/after-add-bookmark
 	@GetMapping("/after-add-bookmark")
 	public String afterAddBookMark(Model model) {
