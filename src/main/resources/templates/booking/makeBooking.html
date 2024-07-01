@@ -60,11 +60,6 @@
 						<input type="text" id="phoneNumber" class="form-control">
 					</div>
 					
-					<span class="font-weight-bold d-flex justify-content-start mt-2">예약상태</span>
-					<div class="d-flex justify-content-center">	
-						<input type="text" id="state" class="form-control">
-					</div>
-					
 					<button id="reserveBtn" class="mt-4 mb-4 form-control btn btn-warning">예약하기</button>
 				</div>
 				<div class="contents-right col-3"></div>
@@ -81,29 +76,58 @@
 
 <script>
 	$(document).ready(function() {
+		// datepicker 날짜 선택 - 나중에 위에 3줄 추가하고 주석 풀 것.
+		//$("#date").datepicker({
+		//	dateFormat:"yy-mm-dd"
+		//	, minDate:0 // 최소 date는 오늘부터~
+		//}); // datepicker 끝
+		
 		// reserveBtn 버튼 클릭 이벤트
 		$("#reserveBtn").on('click', function() {
 			// alert("중간점검");
 			let name = $("#name").val().trim();
-			let date = $("#date").val().trim();
-			let day = $("#day").val();
-			let headcount = $("#headcount").val();
+			let date = $("#date").val(); // 어차피 데이트피커 클릭이므로 여백 실수할 가능성 없으므로 trim()을 굳이 넣진 않는다.
+			let day = $("#day").val().trim();
+			let headcount = $("#headcount").val().trim();
 			let phoneNumber = $("#phoneNumber").val().trim();
-			let state = $("#state").val().trim();
 			
-			if (!name || !date || !day || !headcount || !phoneNumber || !state) {
-				alert("누락된 정보가 있습니다.");
+			if (!name) {
+				alert("이름이 누락되었습니다.");
 				return; // 또 까먹음. 주의하자
+			} 
+			if (!date) {
+				alert("날짜가 누락되었습니다.");
+				return;
+			}  
+			if (!day) {
+				alert("숙박일수가 누락되었습니다.");
+				return;
 			}
+			if (!headcount) {
+				alert("인원이 누락되었습니다.");
+				return;
+			}
+			if (!phoneNumber) {
+				alert("전화번호가 누락되었습니다.");
+				return;
+			}
+			
+			// console 중간점검
+			console.log(name);
+			console.log(date);
+			console.log(day);
+			console.log(headcount);
+			console.log(phoneNumber);
 			
 			$.ajax({
 				// request
 				type: "post"
 				,url: "/booking/add-booking"
-				,data: {"name":name, "date":date, "day":day, "headcount":headcount, "phoneNumber":phoneNumber, "state":state}
+				,data: {"name":name, "date":date, "day":day, "headcount":headcount, "phoneNumber":phoneNumber}
 				// response
 				, success:function(data) {
 					if (data.code == 200) {
+						alert("예약이 완료되었습니다. 예약목록 페이지로 이동합니다.");
 						location.href = "/booking/booking-list-view";
 					} else {
 						alert("다시 확인 바람.");

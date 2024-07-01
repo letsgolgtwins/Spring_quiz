@@ -43,12 +43,17 @@
 				<tbody>
 					<tr th:each="listInfo, status : ${bookingList}">
 						<td th:text="${listInfo.name}"></td>
-						<td th:text="${#temporals.format(listInfo.date, 'yyyy년 M월 dd일')}"></td>
+						<td th:text="${#temporals.format(listInfo.date, 'yyyy년 M월 d일')}"></td>
 						<td th:text="${listInfo.day}"></td>
 						<td th:text="${listInfo.headcount}"></td>
 						<td th:text="${listInfo.phoneNumber}"></td>
-						<td th:text="${listInfo.state}"></td>
 						<td>
+							<span th:if="${listInfo.state == '대기중'}" th:text="${listInfo.state}" class="text-info"></span>
+							<span th:if="${listInfo.state == '확정'}" th:text="${listInfo.state}" class="text-success"></span>
+							<span th:if="${listInfo.state == '취소'}" th:text="${listInfo.state}" class="text-danger"></span>
+						</td>
+						<td>
+							<!-- th:data-내가 지을 이름(단, 이름 지을 때 카멜케이스 대문자는 절대 안된다) -->
 							<button type="button" th:data-booking-id="${listInfo.id}" class="deleteBtn btn btn-danger">삭제</button>
 						</td>
 					</tr>
@@ -74,15 +79,17 @@
 			// alert(id);
 			$.ajax({
 				// request
-				type: "delete"
+				type: "delete" // 아무나 못들어오게
 				,url: "/booking/delete-bookingList"
-				,data:{"id":id}
-				// response
+				,data:{"id":id} // 파라미터
+				// callback response
 				, success:function(data) {
+					// {"code":200, "message":"성공"}
 					if (data.code == 200) {
 						// 삭제 성공.
-						location.reload(); 				
-					} else if (data.code == 500) {
+						alert("삭제되었습니다.");
+						location.reload(true); // 세로고침으로 화면 유지	 
+					} else if (data.code == 500) { // {"code":500, "error_message":"실패했을 때 문구"}
 						// 삭제 실패.
 						alert(data.errorMessage);
 					}

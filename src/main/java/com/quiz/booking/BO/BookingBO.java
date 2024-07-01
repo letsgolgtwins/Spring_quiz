@@ -28,4 +28,10 @@ public class BookingBO {
 	public int deleteBookingById(int id) {
 		return bookingMapper.deleteBookingById(id);
 	}
+	
+	// db에서 count select
+	public int getBookingByNameAndPhoneNumber(String name, String phoneNumber) {
+		return bookingMapper.selectBookingByNameAndPhoneNumber(name, phoneNumber);
+				
+	}
 }

@@ -37,7 +37,7 @@ public class BookingController {
 		return "booking/bookingList";
 	}
 	
-	// 1. 삭제하기 
+	// 1. 예약 id로 삭제하기 
 	// /booking/delete-bookingList
 	@ResponseBody
 	@DeleteMapping("/delete-bookingList")
@@ -48,7 +48,7 @@ public class BookingController {
 		int count = bookingBO.deleteBookingById(id);
 		
 		// 응답 JSON
-		// {"code":200, "message":"성공"}
+		// {"code":200, "각 경우의 message":"성공"}
 		Map<String, Object> deleteResult = new HashMap<>();
 		if (count > 0) { // 삭제 성공인셈
 			deleteResult.put("code", 200);
@@ -62,7 +62,6 @@ public class BookingController {
 		
 	}
 	
-
 	// 2. 예약하기 페이지 - 예약목록 화면의 메뉴의 링크로 들어가야 하니 getmapping
 	// http://localhost:8080/booking/make-booking-view
 	@GetMapping("/make-booking-view")
@@ -70,12 +69,13 @@ public class BookingController {
 		return "booking/makeBooking";
 	}
 	
-	// 2. AJAX로 예약하기 db에 insert
+	// 2. AJAX로 요청 db에 예약정보 insert
 	// /booking/add-booking
 	@ResponseBody
 	@PostMapping("/add-booking")
 	public Map<String, Object> addBooking(Booking booking) {
 		// db에 insert
+		// 나는 객체로 만들엇지만, requestparam 쓸 경우, date의 자료형을 LocalDate로 해도된다. 왜냐? String도 되기 때문에.
 		bookingBO.addBooking(booking);
 		
 		// 응답 JSON {"code":200, "message":"성공"}
@@ -86,5 +86,37 @@ public class BookingController {
 		return result;
 	}
 	
+	// 3. 조회 창 띄우기
+	// http://localhost:8080/booking/check-booking-view
+	@GetMapping("/check-booking-view")
+	public String checkBookingView() {
+		return "booking/checkBooking";
+	}
 	
+	// 3. AJAX로 조회하기
+	// /booking/check-booking
+	@ResponseBody
+	@PostMapping("/check-booking")
+	public Map<String, Object> checkBooking(
+			@RequestParam("name") String name, 
+			@RequestParam("phoneNumber") String phoneNumber) {
+			
+		// select - count가 아니었다...
+		int rowCount = bookingBO.getBookingByNameAndPhoneNumber(name, phoneNumber);
+		
+		// 응답 JSON
+		// {"code":200, "yesMessage":"yes"}
+		// {"code":500, "notMessage":"not"}
+		// 얘도 다 바꿀것. BO, Mapper, xml도 다 바꿀것.
+		Map<String, Object> result = new HashMap<>();
+		if (rowCount == 0) { // 조회된 거 없음
+			result.put("code", 500);
+			result.put("notMessage", "not");
+		} else { // 조회된 거 존재함.
+			result.put("code", 200);
+			result.put("yesMessage", "yes");
+		}
+		
+		return result;
+	}
 }
