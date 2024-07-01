@@ -10,6 +10,11 @@ import com.quiz.booking.domain.Booking;
 public interface BookingMapper {
 
 	// db에서 select
-	public List<Booking> selectBookingList(Booking booking);
+	public List<Booking> selectBookingList();
 
+	// db에 insert
+	public void insertBooking(Booking booking);
+
+	// db에서 delete
+	public int deleteBookingById(int id);
 }

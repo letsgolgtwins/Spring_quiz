@@ -15,7 +15,17 @@ public class BookingBO {
 	private BookingMapper bookingMapper;
 	
 	// db에서 여러행 select
-	public List<Booking> getBookingList(Booking booking) {
-		return bookingMapper.selectBookingList(booking);
+	public List<Booking> getBookingList() {
+		return bookingMapper.selectBookingList();
+	}
+	
+	// db에 insert
+	public void addBooking(Booking booking) {
+		bookingMapper.insertBooking(booking);
+	}
+	
+	// db에서 delete
+	public int deleteBookingById(int id) {
+		return bookingMapper.deleteBookingById(id);
 	}
 }

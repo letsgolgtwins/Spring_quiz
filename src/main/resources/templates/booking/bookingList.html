@@ -21,10 +21,10 @@
 		</header>
 		<nav class="menu d-flex align-items-center bg-warning">
 			<ul class="nav nav-fill w-100 text-white font-weight-bold">
-				<li class="nav-item">펜션소개</li>
-				<li class="nav-item">객실보기</li>
-				<li class="nav-item"><a class="nav-link text-white" href="#">예약하기</a></li>
-				<li class="nav-item"><a class="nav-link text-white" href="#">예약목록</a></li>
+				<li class="nav-item"><a class="nav-link menu-font text-white" href="#">펜션소개</a></li>
+				<li class="nav-item"><a class="nav-link menu-font text-white" href="#">객실보기</a></li>
+				<li class="nav-item"><a class="nav-link menu-font text-white" href="/booking/make-booking-view">예약하기</a></li>
+				<li class="nav-item"><a class="nav-link menu-font text-white" href="/booking/booking-list-view">예약목록</a></li>
 			</ul>
 		</nav>
 		
@@ -49,7 +49,7 @@
 						<td th:text="${listInfo.phoneNumber}"></td>
 						<td th:text="${listInfo.state}"></td>
 						<td>
-							<button type="button" class="btn btn-danger">삭제</button>
+							<button type="button" th:data-booking-id="${listInfo.id}" class="deleteBtn btn btn-danger">삭제</button>
 						</td>
 					</tr>
 				</tbody>
@@ -65,4 +65,33 @@
 		</footer>
 	</div> 
 </body>
+
+<script>
+	$(document).ready(function() {
+		$(".deleteBtn").on('click', function() {
+			// 데이터로 가져오기
+			let id = $(this).data("booking-id");
+			// alert(id);
+			$.ajax({
+				// request
+				type: "delete"
+				,url: "/booking/delete-bookingList"
+				,data:{"id":id}
+				// response
+				, success:function(data) {
+					if (data.code == 200) {
+						// 삭제 성공.
+						location.reload(); 				
+					} else if (data.code == 500) {
+						// 삭제 실패.
+						alert(data.errorMessage);
+					}
+				}
+				, error:function(error) {
+					alert("서버상의 에러입니다.");
+				}
+			}); // AJAX 끝.
+		}); // deleteBtn버튼 클릭 이벤트 끝.
+	}); // ready 함수 끝.
+</script>
 </html>

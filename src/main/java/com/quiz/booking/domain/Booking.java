@@ -3,6 +3,8 @@ package com.quiz.booking.domain;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class Booking {
 
 	// 필드
@@ -10,6 +12,7 @@ public class Booking {
 	private String name;
 	private int headcount;
 	private int day;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate date;
 	private String phoneNumber;
 	private String state;

@@ -13,6 +13,7 @@
 	.menu {min-height: 40px}
 	.contents {min-height: 400px}
 	footer {height: 100px}
+	.contents-left, .contents-center, .contents-right {min-height: 400px};
 </style>
 <body>
 	<div id="wrap" class="container text-center">
@@ -21,15 +22,53 @@
 		</header>
 		<nav class="menu d-flex align-items-center bg-warning">
 			<ul class="nav nav-fill w-100 text-white font-weight-bold">
-				<li class="nav-item">펜션소개</li>
-				<li class="nav-item">객실보기</li>
-				<li class="nav-item"><a class="nav-link text-white" href="#">예약하기</a></li>
-				<li class="nav-item"><a class="nav-link text-white" href="#">예약목록</a></li>
+				<li class="nav-item"><a class="nav-link menu-font text-white" href="#">펜션소개</a></li>
+				<li class="nav-item"><a class="nav-link menu-font text-white" href="#">객실보기</a></li>
+				<li class="nav-item"><a class="nav-link menu-font text-white" href="/booking/make-booking-view">예약하기</a></li>
+				<li class="nav-item"><a class="nav-link menu-font text-white" href="/booking/booking-list-view">예약목록</a></li>
 			</ul>
 		</nav>
 		
 		<section class="contents">
-			<!-- 여기서부터 다시 풀 것. -->
+			<div class="d-flex">
+				<div class="contents-left col-3"></div>
+				<div class="contents-center col-6">
+					<h4 class="pt-4 font-weight-bold">예약 목록 보기</h4>
+					
+					<span class="font-weight-bold d-flex justify-content-start">이름</span>
+					<div class="d-flex justify-content-center">	
+						<input type="text" id="name" class="form-control">
+					</div>
+					
+					<span class="font-weight-bold d-flex justify-content-start mt-2">예약날짜</span>
+					<div class="d-flex justify-content-center">	
+						<input type="text" id="date" class="form-control">
+					</div>
+					
+					<span class="font-weight-bold d-flex justify-content-start mt-2">숙박일수</span>
+					<div class="d-flex justify-content-center">	
+						<input type="text" id="day" class="form-control">
+					</div>
+					
+					<span class="font-weight-bold d-flex justify-content-start mt-2">숙박인원</span>
+					<div class="d-flex justify-content-center">	
+						<input type="text" id="headcount" class="form-control">
+					</div>
+					
+					<span class="font-weight-bold d-flex justify-content-start mt-2">전화번호</span>
+					<div class="d-flex justify-content-center">	
+						<input type="text" id="phoneNumber" class="form-control">
+					</div>
+					
+					<span class="font-weight-bold d-flex justify-content-start mt-2">예약상태</span>
+					<div class="d-flex justify-content-center">	
+						<input type="text" id="state" class="form-control">
+					</div>
+					
+					<button id="reserveBtn" class="mt-4 mb-4 form-control btn btn-warning">예약하기</button>
+				</div>
+				<div class="contents-right col-3"></div>
+			</div>
 		</section>
 		
 		<footer class="text-secondary">
@@ -39,4 +78,42 @@
 		</footer>
 	</div> 
 </body>
+
+<script>
+	$(document).ready(function() {
+		// reserveBtn 버튼 클릭 이벤트
+		$("#reserveBtn").on('click', function() {
+			// alert("중간점검");
+			let name = $("#name").val().trim();
+			let date = $("#date").val().trim();
+			let day = $("#day").val();
+			let headcount = $("#headcount").val();
+			let phoneNumber = $("#phoneNumber").val().trim();
+			let state = $("#state").val().trim();
+			
+			if (!name || !date || !day || !headcount || !phoneNumber || !state) {
+				alert("누락된 정보가 있습니다.");
+				return; // 또 까먹음. 주의하자
+			}
+			
+			$.ajax({
+				// request
+				type: "post"
+				,url: "/booking/add-booking"
+				,data: {"name":name, "date":date, "day":day, "headcount":headcount, "phoneNumber":phoneNumber, "state":state}
+				// response
+				, success:function(data) {
+					if (data.code == 200) {
+						location.href = "/booking/booking-list-view";
+					} else {
+						alert("다시 확인 바람.");
+					}
+				}
+				, error:function(error) {
+					alert("서버상의 에러입니다.");
+				}
+			}); // AJAX 끝.
+		}); // reserveBtn 버튼 클릭 이벤트 끝.
+	}); // ready 함수 끝.
+</script>
 </html>

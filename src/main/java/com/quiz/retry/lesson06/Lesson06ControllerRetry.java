@@ -57,7 +57,7 @@ public class Lesson06ControllerRetry {
 			@RequestParam("url") String url) {
 		
 		// count=0=false=중복아님 / count!=0=true=중복
-		boolean isDuplicate = bookMarkServiceRetry.checkBookMarkById(url);
+		boolean isDuplicate = bookMarkServiceRetry.selectBookMarkListByUrl(url);
 		
 		// 응답 JSON
 		// {"code":200, "yesDuplicate":isDuplicate}
