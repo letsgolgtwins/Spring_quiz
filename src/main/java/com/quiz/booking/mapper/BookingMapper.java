@@ -19,9 +19,16 @@ public interface BookingMapper {
 	// db에서 delete
 	public int deleteBookingById(int id);
 	
-	// db에서 select
+	// db에서 select - 내 풀이
 	public List<Booking> selectBookingByNameAndPhoneNumber(
 			@Param("name") String name, 
 			@Param("phoneNumber") String phoneNumber
 			);
+	
+	// 선생님 모범답안 - i: name, phoneNumber/ o:List 
+	public List<Booking> selectBookingListByNameAndPhoneNumber(
+			@Param("name") String name, 
+			@Param("phoneNumber") String phoneNumber
+			);
+	
 }

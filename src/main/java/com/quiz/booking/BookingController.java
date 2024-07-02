@@ -101,19 +101,37 @@ public class BookingController {
 			@RequestParam("name") String name, 
 			@RequestParam("phoneNumber") String phoneNumber) {
 			
-		// select - count가 아니었다...
-		List<Booking> bookingInfo = bookingBO.getBookingByNameAndPhoneNumber(name, phoneNumber);
+		// select - 내 풀이
+		// List<Booking> bookingInfo = bookingBO.getBookingByNameAndPhoneNumber(name, phoneNumber);
 		
-		// 응답 JSON
+		// select - 모범답안
+		Booking booking = bookingBO.getLatestBookingByNameAndPhoneNumber(name, phoneNumber);
+		
+		Map<String, Object> result = new HashMap<>();
+		// 응답 JSON 내 풀이
 		// {"code":200, "yes":bookingInfo}
 		// {"code":500, "notMessage":"not"}
-		Map<String, Object> result = new HashMap<>();
-		if (bookingInfo == null || bookingInfo.isEmpty()) { // 조회된 거 없음
-			result.put("code", 500);
-			result.put("notMessage", "not");
-		} else { // 조회된 거 존재함.
+			
+		//	내 풀이
+		// if (bookingInfo == null || bookingInfo.isEmpty()) { // 조회된 거 없음
+		//	 result.put("code", 500);
+		//	 result.put("notMessage", "not");
+		// } else { // 조회된 거 존재함.
+		//	 result.put("code", 200);
+		//	 result.put("yes", bookingInfo);
+		// }
+		
+		// 응답 JSON 모범답안
+		// {"code":200, "result":booking 객체}
+		// {"code":200, "result":{"id":3, "name":"신보람"....}} 의 형태	
+		
+		// 모범답안
+		if (booking != null) {
 			result.put("code", 200);
-			result.put("yes", bookingInfo);
+			result.put("result", booking);
+		} else {
+			result.put("code", 500);
+			result.put("error_message", "예약내역이 없습니다.");
 		}
 		
 		return result;

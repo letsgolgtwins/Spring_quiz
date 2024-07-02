@@ -39,8 +39,11 @@
 			<div th:if="${average<10}">
 				<h3 th:text="${average}"></h3>
 			</div>
-			<!-- 위에 대신에 -->
-			<h3 th:unless="${average >= 10}" th:text=${average}"></h3>
+			<!-- 위에 대신에 
+			<div th:unless="${average >= 10}">
+				<h3 th:text=${average}"></h3>
+			</div> 
+			-->
 		</div>
 	</th:block>
 </body>

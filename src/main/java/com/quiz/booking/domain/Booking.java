@@ -5,6 +5,9 @@ import java.time.LocalDateTime;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import lombok.Data;
+
+@Data
 public class Booking {
 
 	// 필드
@@ -19,78 +22,6 @@ public class Booking {
 	private LocalDateTime createdAt;
 	private LocalDateTime updatedAt;
 
-	// getter
-	public int getId() {
-		return id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public int getHeadcount() {
-		return headcount;
-	}
-
-	public int getDay() {
-		return day;
-	}
-
-	public LocalDate getDate() {
-		return date;
-	}
-
-	public String getPhoneNumber() {
-		return phoneNumber;
-	}
-
-	public String getState() {
-		return state;
-	}
-
-	public LocalDateTime getCreatedAt() {
-		return createdAt;
-	}
-
-	public LocalDateTime getUpdatedAt() {
-		return updatedAt;
-	}
-
-	// setter
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public void setHeadcount(int headcount) {
-		this.headcount = headcount;
-	}
-
-	public void setDay(int day) {
-		this.day = day;
-	}
-
-	public void setDate(LocalDate date) {
-		this.date = date;
-	}
-
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
-
-	public void setState(String state) {
-		this.state = state;
-	}
-
-	public void setCreatedAt(LocalDateTime createdAt) {
-		this.createdAt = createdAt;
-	}
-
-	public void setUpdatedAt(LocalDateTime updatedAt) {
-		this.updatedAt = updatedAt;
-	}
+	// 240702 loombok 설치에 따른 getter setter 모두 삭제
 
 }
