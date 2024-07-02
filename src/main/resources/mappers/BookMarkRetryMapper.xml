@@ -2,54 +2,48 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
-<mapper namespace="com.quiz.retry.lesson06.mapper.BookMarkMapperRetry">
-	<!-- lesson06 quiz01_2 데이터 insert -->
-	<insert id="insertBookMarkList" parameterType="com.quiz.retry.lesson06.domain.BookMarkRetry">
-		INSERT INTO `bookmark`
-		(
+ <mapper namespace="com.quiz.retry.lesson06.mapper.BookmarkMapperRetry">
+ 	<!-- lesson06 quiz01 db에 insert -->
+ 	<insert id="insertBookmark" parameterType="map">
+ 		INSERT INTO `bookmark`
+ 		(
 			`name`
 			,`url`
 			,`createdAt`
 			,`updatedAt`
-		)
-		VALUES
-		(
-			#{name}
-			, #{url}
-			, NOW()
-			, NOW()
-		)
-	</insert>
-	<!-- lesson06 quiz01_2 select 결과 페이지 이동 -->
-	<select id="selectBookMarkList" resultType="com.quiz.retry.lesson06.domain.BookMarkRetry">
-		SELECT 
-			`id`
+ 		)
+ 		VALUES
+ 		(
+ 			#{name}
+ 			,#{url}
+ 			, NOW()
+ 			, NOW()
+ 		)
+ 	</insert>
+ 	
+ 	<!-- lesson06 quiz01 db에서 select -->
+ 	<select id="selectBookmarkList" resultType="com.quiz.retry.lesson06.domain.BookmarkRetry">
+ 		SELECT 
+ 			`id`
 			,`name`
 			,`url`
 			,`createdAt`
 			,`updatedAt`
-		FROM
-			`bookmark`
-	</select>
-	<!-- lesson06 quiz02_1 db에서 중복확인 by Count 방식 -->
-	<select id="checkBookMarkById" parameterType="String" resultType="boolean">
-		SELECT COUNT(*)
-		FROM 
-			`bookmark`
-		WHERE
-			`url` = #{url}
-	</select>
-	<!-- lesson06 quiz02_1 db에서 중복확인 by url 방식 -->
-	<select id="selectBookMarkListByUrl" parameterType="String" resultType="com.quiz.retry.lesson06.domain.BookMarkRetry">
-		SELECT 
-			`id`
+ 		FROM
+ 			`bookmark`
+ 	</select>
+ 	
+ 	<!-- lesson06 quiz02 db에서 select -->
+ 	<select id="selectBookmarkListByUrl" parameterType="String" resultType="com.quiz.retry.lesson06.domain.BookmarkRetry">
+ 		SELECT 
+ 			`id`
 			,`name`
 			,`url`
 			,`createdAt`
 			,`updatedAt`
-		FROM
-			`bookmark`
-		WHERE
-			`url` = #{url}
-	</select>
-</mapper>
+ 		FROM
+ 			`bookmark`
+ 		WHERE
+ 			`url` = #{url}
+ 	</select>
+ </mapper>

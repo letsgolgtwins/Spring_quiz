@@ -2,7 +2,7 @@ package com.quiz.retry.lesson06.domain;
 
 import java.time.LocalDateTime;
 
-public class BookMarkRetry {
+public class BookmarkRetry {
 
 	// 필드
 	private int id;
@@ -32,7 +32,7 @@ public class BookMarkRetry {
 		return updatedAt;
 	}
 
-	// setter 
+	// setter
 	public void setId(int id) {
 		this.id = id;
 	}

@@ -22,86 +22,83 @@
 		<small id="duplicationText" class="d-none font-weight-bold text-danger">중복된 url입니다.</small>
 		<small id="notDuplicationText" class="d-none font-weight-bold text-danger">저장가능한 url입니다.</small>
 		<small id="nameStatusArea"></small>
+		
 		<input type="button" id="addBtn" value="추가" class="btn btn-success col-12">
 	</div>
 </body>
 <script>
 	$(document).ready(function() {
-		// addBtn(추가)버튼 클릭 이벤트.
-		$("#addBtn").on('click', function() {
-			// alert("중간 점검");
+		// addBtn 버튼 클릭 이벤트
+		$("#addBtn").on('click', function () {
 			let name = $("#name").val().trim();
 			let url = $("#url").val().trim();
 			
-			// 모든 칸에 입력되었는가?
 			if (!name) {
 				alert("제목을 입력하세요.");
 				return;
-			} else if (!url) {
+			}
+			if (!url) {
 				alert("url을 입력하세요.");
 				return;
 			}
-			
-			// http혹은 https 프로토콜이 모두 입력되었는지? -  - 여기서 왜 or이 아니라 and인지 다시 한 번 생각.
 			if (!url.startsWith("http://") && !url.startsWith("https://")) {
-				alert("주소 형식이 잘못되었습니다.");
+				alert("http혹은 https 를 붙여주세요.");
 				return;
 			}
 			
-			// AJAX  
-			$.ajax({
-				// request
-				type:"post"
-				, url:"/retry/lesson06/quiz01/bookmarkList" // postmapping 주소
-				, data: {"name":name, "url":url}
-				// response
-				,success:function(data) {
-					if (data.message == "성공~!") {
-						location.href = "/retry/lesson06/quiz01/final-bookmarkList"; 					
-					}
-				}
-				, error:function(error) {
-					alert("아예 코드상의 error입니다!");
-				}
-			}); // AJAX 끝.
-		}); // addBtn(추가)버튼 클릭 이벤트 끝.
-		
-		// checkBtn(중복확인) 버튼 클릭 이벤트
-		$("#checkBtn").on('click', function() {
-			// alert("중간점검");
-			
-			// nameStatusArea 초기화
-			$("#nameStatusArea").empty();
-			
-			// validation
-			let url = $("#url").val().trim();
-			if (!url) {
-				$("#nameStatusArea").append('<span class="text-danger font-weight-bold">url이 비어있습니다.</span>');
-				return;
-			}
-			
-			// db에서 AJAX 중복여부 확인 
 			$.ajax({
 				// request
 				type: "post"
-				, url: "/retry/lesson06/quiz01/check-duplicate-by-count"
-				, data: {"url":url}
+				, url: "/retry/lesson06/add-bookmark"
+				, data: {"name":name, "url":url}
 				// response
-				
-				,success:function(data) {
-					if (data.yesDuplicate) { // 중복이면~
-						$("#duplicationText").removeClass("d-none");
-						$("#notDuplicationText").addClass("d-none");
-					} else { // 중복이 아니면~
-						$("#duplicationText").addClass("d-none");
-						$("#notDuplicationText").removeClass("d-none");
+				, success:function(data) {
+					if (data.code == 200) { // insert 성공
+						location.href = "/retry/lesson06/bookmarkList-view"
+					} else if (data.code == 500) { // insert 실패
+						alert("데이터 insert에 실패하였습니다.");
 					}
 				}
-				,error:function(error) {
-					alert("아예 서버상의 error입니다.");
+				, error:function(error) {
+					alert("서버상 오류입니다.");
+				}
+				
+			}); // AJAX 끝.
+		}); // addBtn 버튼 클릭 이벤트 끝.
+		
+		// checkBtn 버튼 클릭 이벤트 
+		$("#checkBtn").on('click', function() {
+			// alert("중간점검");
+			
+			// nameStatusArea 비워내기
+			$("#nameStatusArea").empty();
+		
+			let url = $("#url").val().trim();
+			if (!url) {
+				$("#nameStatusArea").append('<span class="text-danger font-weight-bold">url이 비어있습니다. url을 입력해주세요.</span>');
+				return;
+			}
+			// db에서 AJAX 중복여부 확인
+			$.ajax({
+				// request
+				type: "post"
+				, url: "/retry/lesson06/check-bookmark"
+				, data:	{"url":url}
+				// response
+				, success:function(data) {
+					if (data.code == 200) { // 중복 없음 
+						$("#notDuplicationText").removeClass("d-none");
+						$("#duplicationText").addClass("d-none");
+					} else if (data.code == 500) { // 중복 있음
+						$("#notDuplicationText").addClass("d-none");
+						$("#duplicationText").removeClass("d-none");
+					}
+				}
+				, error:function(error) {
+					alert("서버상의 에러입니다.");
 				}
 			}); // AJAX 끝.
-		}); // checkBtn(중복확인) 버튼 클릭 이벤트 끝.
+		}); // checkBtn버튼 클릭 이벤트 끝.
 	}); // ready함수 끝.
 </script>
 </html>
