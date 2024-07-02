@@ -18,34 +18,42 @@
 	 <link rel="stylesheet" type="text/css" href="/css/booking/style.css">
 </head>
 </head>
+<style>
+	header {min-height: 80px}
+	.menu {min-height: 40px}
+	footer {height: 100px}
+	.banner {min-height: 500px}
+	.bannerImage {min-height: 500px; width: 1110px}
+	.reserve {min-height: 250px}
+</style>
 <body>
-	<div id="wrap" class="container">
+	<div id="wrap" class="container text-center">
 		<header class="d-flex justify-content-center align-items-center">
-			<div class="display-4">통나무 펜션</div>
+			<h1>통나무 펜션</h1>
 		</header>
-		<nav>
-			<ul class="nav nav-fill">
-				<li class="nav-item"><a href="#"
-					class="nav-link text-white font-weight-bold">팬션소개</a></li>
-				<li class="nav-item"><a href="#"
-					class="nav-link text-white font-weight-bold">객실보기</a></li>
-				<li class="nav-item"><a href="/booking/make-booking-view"
-					class="nav-link text-white font-weight-bold">예약하기</a></li>
-				<li class="nav-item"><a href="/booking/booking-list-view"
-					class="nav-link text-white font-weight-bold">예약목록</a></li>
+		<nav class="menu d-flex align-items-center bg-warning">
+			<ul class="nav nav-fill w-100 text-white font-weight-bold">
+				<li class="nav-item"><a class="nav-link menu-font text-white" href="#">펜션소개</a></li>
+				<li class="nav-item"><a class="nav-link menu-font text-white" href="#">객실보기</a></li>
+				<li class="nav-item"><a class="nav-link menu-font text-white" href="/booking/make-booking-view">예약하기</a></li>
+				<li class="nav-item"><a class="nav-link menu-font text-white" href="/booking/booking-list-view">예약목록</a></li>
 			</ul>
 		</nav>
+		
+		<!-- 배너 -->
 		<section class="banner bg-info">
-			<img id="bannerImage" src="/img/test06_banner1.jpg" alt="banner"
-				width="1110" height="500">
+			<img id="bannerImage" src="/img/test06_banner1.jpg" class="bannerImage w-100" alt="banner">
 		</section>
+		
+		<!-- 하단 -->
 		<section class="reserve bg-primary d-flex">
-			<section
-				class="real-time-reserved col-4 d-flex justify-content-center align-items-center">
+			
+			<section class="real-time-reserved col-4 d-flex justify-content-center align-items-center">
 				<div class="display-4 text-white">
 					실시간<br>예약하기
 				</div>
 			</section>
+			
 			<section class="confirm col-4">
 				<div id="memberBox" class="mr-3 pt-3">
 					<span class="reserve-confirm-text">예약 확인</span>
@@ -64,21 +72,22 @@
 					</div>
 				</div>
 			</section>
-			<section
-				class="inquiry col-4 d-flex justify-content-center align-items-center">
+			
+			<section class="inquiry col-4 d-flex justify-content-center align-items-center">
 				<div class="text-white">
 					<h4 class="font-weight-bold">예약문의:</h4>
 					<h1>
-						010-<br>0000-1111
+						<span>010-</span><br>
+						<span>0000-1111</span>
 					</h1>
 				</div>
 			</section>
+			
 		</section>
-		<footer>
-			<small class="text-secondary"> 제주특별자치도 제주시 애월읍<br>
-				사업자등록번호: 111-22-255222 / 농어촌민박사업자지정 / 대표:김통목<br> Copyright 20XX
-				tongnamu. All right reserved.
-			</small>
+		<footer class="text-secondary">
+			<small class="d-flex justify-content-start">제주특별자치도 제주시 애월읍</small>
+			<small class="d-flex justify-content-start">사업자등록번호: 111-22-2552222 / 농어촌민박사업자지정 / 대표:김통목</small>
+			<small class="d-flex justify-content-start">Copyright 20XX tongnamu. All Rights reserved.</small>
 		</footer>
 	</div>
 </body>
@@ -91,9 +100,11 @@
 			
 			if (!name) {
 				alert("이름을 입력하세요.");
+				return;
 			}
 			if (!phoneNumber) {
 				alert("전화번호를 입력하세요.");
+				return;
 			}
 			
 			$.ajax({
@@ -104,22 +115,36 @@
 			
 				// response
 				, success:function(data) {
-					// {"code":200, "yesMessage":"yes"}
+					// {"code":200, "yes":bookingInfo}
 					// {"code":500, "notMessage":"not"}
-					if (data.code == 200) { // 존재함
-						alert("이름:" + name);
-						
-					} else if (data.code == 500) { // 존재X
+					if (data.code == 200) { // 있을 경우
+						let bookingInfo = data.yes;
+						if (bookingInfo.length > 0) {
+							let latestBooking = bookingInfo[0];
+							alert("이름 : " + latestBooking.name + "\n날짜 : " + latestBooking.date + "\n일수 : " + latestBooking.day + "\n인원 : " + latestBooking.headcount + "\n상태 : " + latestBooking.state);
+						}
+					} else if (data.code == 500) { // 없을 경우
 						alert("예약 내역이 없습니다.");
 					}
 				}
 				, error:function(error) {
 					alert("서버상의 에러입니다.");
 				}
-			
-			}); // AJAX 끝.
-			
+			}); //AJAX 끝.
 		}); // checkBookingBtn 클릭 이벤트 끝.
-	}); // ready 함수 끝.
+		
+		// 배너 이미지 순환
+		/* 
+		let bannerArr = ['/img/test06_banner1.jpg', '/img/test06_banner2.jpg', '/img/test06_banner3.jpg', '/img/test06_banner4.jpg'];
+		let currentIndex = 0;
+		setInterval(function() {
+			currentIndex++;
+			
+			if (currentIndex >= bannerArr.length) {
+				currentIndex = 0;
+			}
+			$("#bannerImage").attr("src", bannerArr[currentIndex]);
+		}, 10000); */ // 배너 이미지 순환 끝.
+	});  // ready 함수 끝. 
 </script>
 </html>

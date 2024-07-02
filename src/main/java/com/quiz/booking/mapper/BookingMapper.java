@@ -19,9 +19,8 @@ public interface BookingMapper {
 	// db에서 delete
 	public int deleteBookingById(int id);
 	
-	// db에서 count select
-	// (String name, String phoneNumber, String date, int day, int headcount, String state)
-	public int selectBookingByNameAndPhoneNumber(
+	// db에서 select
+	public List<Booking> selectBookingByNameAndPhoneNumber(
 			@Param("name") String name, 
 			@Param("phoneNumber") String phoneNumber
 			);

@@ -54,10 +54,19 @@
  			`id` = #{id}
  	</delete>
  	
- 	<!-- lesson06 quiz03_3 db에서 count select -->
- 	<!-- count가 0이면 예약내역이 없는 거 / count가 0이 아니면(1이면) 예약내역이 있는 거 -->
- 	<select id="selectBookingByNameAndPhoneNumber" parameterType="map" resultType="int">
- 		SELECT COUNT(*) FROM
+ 	<!-- lesson06 quiz03_3 db에서 select -->
+ 	<select id="selectBookingByNameAndPhoneNumber" parameterType="map" resultType="com.quiz.booking.domain.Booking">
+ 		SELECT 
+ 			`id`
+			,`name`
+			,`headcount`
+			,`day`
+			,`date`
+			,`phoneNumber`
+			,`state`
+			,`createdAt`
+			,`updatedAt`
+ 		FROM
  			`booking`
  		WHERE
  			`name` = #{name}

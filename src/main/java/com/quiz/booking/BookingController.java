@@ -102,19 +102,18 @@ public class BookingController {
 			@RequestParam("phoneNumber") String phoneNumber) {
 			
 		// select - count가 아니었다...
-		int rowCount = bookingBO.getBookingByNameAndPhoneNumber(name, phoneNumber);
+		List<Booking> bookingInfo = bookingBO.getBookingByNameAndPhoneNumber(name, phoneNumber);
 		
 		// 응답 JSON
-		// {"code":200, "yesMessage":"yes"}
+		// {"code":200, "yes":bookingInfo}
 		// {"code":500, "notMessage":"not"}
-		// 얘도 다 바꿀것. BO, Mapper, xml도 다 바꿀것.
 		Map<String, Object> result = new HashMap<>();
-		if (rowCount == 0) { // 조회된 거 없음
+		if (bookingInfo == null || bookingInfo.isEmpty()) { // 조회된 거 없음
 			result.put("code", 500);
 			result.put("notMessage", "not");
 		} else { // 조회된 거 존재함.
 			result.put("code", 200);
-			result.put("yesMessage", "yes");
+			result.put("yes", bookingInfo);
 		}
 		
 		return result;
