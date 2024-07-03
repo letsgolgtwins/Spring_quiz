@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.quiz.retry.lesson06.Service.BookmarkServiceRetry;
 import com.quiz.retry.lesson06.domain.BookmarkRetry;
 
-@RequestMapping("/retry/lesson06/")
+@RequestMapping("/retry/lesson06")
 @Controller
 public class Lesson06QuizControllerRetry {
 
@@ -83,4 +84,28 @@ public class Lesson06QuizControllerRetry {
 		
 		return result2;
 	}
+	
+	// quiz02 삭제버튼 눌러서 삭제하기
+	// /retry/lesson06/delete-bookmark
+	@ResponseBody
+	@DeleteMapping("/delete-bookmark")
+	public Map<String, Object> deleteBookmark(@RequestParam("id") int id) {
+		
+		// db에서 delete
+		int count = bookmarkServiceRetry.deleteBookmarkListById(id);
+		
+		// 응답 JSON
+		Map<String, Object> deleteResult = new HashMap<>();
+		if (count > 0) { // 삭제 성공
+			deleteResult.put("code", 200);
+			deleteResult.put("yesMessage", "삭제 성공");
+		} else { // 삭제 실패
+			deleteResult.put("code", 500);
+			deleteResult.put("errorMessage", "삭제 실패");
+		}
+		
+		return deleteResult;
+		
+	}
+	
 }

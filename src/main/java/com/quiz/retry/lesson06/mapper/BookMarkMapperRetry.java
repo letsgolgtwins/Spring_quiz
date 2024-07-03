@@ -21,4 +21,7 @@ public interface BookmarkMapperRetry {
 	
 	// quiz02 db에서 select
 	public List<BookmarkRetry> selectBookmarkListByUrl(String url);
+	
+	// quiz02 db에서 delete
+	public int deleteBookmarkListById(int id);
 }

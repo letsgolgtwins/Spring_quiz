@@ -46,4 +46,12 @@
  		WHERE
  			`url` = #{url}
  	</select>
+ 	
+ 	<!-- lesson06 quiz02 db에서 delete -->
+ 	<delete id="deleteBookmarkListById" parameterType="int">
+ 		DELETE FROM
+ 			`bookmark`
+ 		WHERE
+ 			`id`= #{id}
+ 	</delete>
  </mapper>

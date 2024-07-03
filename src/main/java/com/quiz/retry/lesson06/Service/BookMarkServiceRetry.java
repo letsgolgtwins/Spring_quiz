@@ -29,4 +29,8 @@ public class BookmarkServiceRetry {
 		return bookmarkMapperRetry.selectBookmarkListByUrl(url);
 	}
 	
+	// quiz02 db에서 delete
+	public int deleteBookmarkListById(int id) {
+		return bookmarkMapperRetry.deleteBookmarkListById(id);
+	}
 }

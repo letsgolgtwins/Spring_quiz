@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="com.quiz.retry.booking.mapper.BookingMapperRetry">
+ 	<!-- lesson06 quiz03 db에서 여러건 select -->
+ 	<select id="selectBookingList" resultType="com.quiz.retry.booking.domain.BookingRetry">
+ 		SELECT 
+ 			`id`
+			,`name`
+			,`headcount`
+			,`day`
+			,`date`
+			,`phoneNumber`
+			,`state`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`booking`
+ 	</select>
+ 	
+ 	<!-- lesson06 quiz03 db에서 delete -->
+ 	<delete id="deleteBookingListById" parameterType="int">
+ 		DELETE FROM
+ 			`booking`
+ 		WHERE 
+ 			`id` = #{id}
+ 	</delete>
+ 	
+ 	<!-- lesson06 quzi03 db에 insert -->
+ 	<insert id="insertBookingList" parameterType="com.quiz.retry.booking.domain.BookingRetry">
+ 		INSERT INTO `booking`
+ 		(
+ 			`name`
+			,`headcount`
+			,`day`
+			,`date`
+			,`phoneNumber`
+			,`state`
+			,`createdAt`
+			,`updatedAt`
+ 		)
+ 		VALUES
+ 		(
+ 			#{name}
+ 			, #{headcount}
+ 			, #{day}
+ 			, #{date}
+ 			, #{phoneNumber}
+ 			, '대기중'
+ 			, NOW()
+ 			, NOW()
+ 		)
+ 	</insert>
+ </mapper>
