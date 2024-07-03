@@ -85,4 +85,33 @@ public class BookingControllerRetry {
 		
 		return insertResult;
 	}
+	
+	// 3. 예약 조회 페이지로 일단 이동
+	// http://localhost:8080/retry/booking/check-bookingList-view
+	@GetMapping("/check-bookingList-view")
+	public String checkBookingListView() {
+		return "bookingRetry/checkBooking";
+	}
+	
+	// 3. 예약 조회 기능
+	// /retry/booking/check-bookingList
+	@ResponseBody
+	@PostMapping("/check-bookingList")
+	public Map<String, Object> checkBookingList(
+			@RequestParam("name") String name, 
+			@RequestParam("phoneNumber") String phoneNumber) {
+		// db에서 list select 
+		List<BookingRetry> bookingListCheck = bookingServiceRetry.getBookingListByNameAndPhoneNumber(name, phoneNumber);
+		
+		// 응답 JSON
+		Map<String, Object> checkResult = new HashMap<>();
+		if (bookingListCheck.isEmpty()) { // 존재하지 않음 = 예약 조회 X
+			checkResult.put("code", 200);
+			checkResult.put("notExist", "not_exist");
+		} else { // 존재함 = 예약 조회 O
+			checkResult.put("code", 500);
+			checkResult.put("isExist", "exist");
+		}
+		return checkResult;
+	}
 }

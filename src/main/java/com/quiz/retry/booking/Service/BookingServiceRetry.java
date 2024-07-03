@@ -28,4 +28,9 @@ public class BookingServiceRetry {
 	public int addBookingList(BookingRetry bookingRetry) {
 		return bookingMapperRetry.insertBookingList(bookingRetry);
 	}
+	
+	// db에서 select
+	public List<BookingRetry> getBookingListByNameAndPhoneNumber(String name, String phoneNumber) {
+		return bookingMapperRetry.selectBookingListByNameAndPhoneNumber(name, phoneNumber);
+	}
 }

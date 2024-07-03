@@ -9,7 +9,16 @@ import com.quiz.lesson07.entity.RecruitEntity;
 public interface RecruitRepository extends JpaRepository<RecruitEntity, Integer> {
 
 	// lesson07 quiz02 JPQL 문법 문재
-	public List<RecruitEntity> findAllById(int id); // 1.
-	
-	public List<RecruitEntity> findAllByCompanyId(int companyId);
+	// 1.
+	public List<RecruitEntity> findAllById(int id); 
+	// 2.
+	public List<RecruitEntity> findAllByCompanyId(int companyId); 
+	// 3. 
+	public List<RecruitEntity> findByPositionAndType(String Job, String type); 
+	// 4.
+	public List<RecruitEntity> findByTypeOrSalaryGreaterThan(String type, int salary);
+	// 5.
+	public List<RecruitEntity> findTop3ByTypeOrderBySalaryDesc(String type); 
+	// 6. 
+	public List<RecruitEntity> findByRegionAndSalaryBetween(String region, int startSalary, int endSalary);  
 }
