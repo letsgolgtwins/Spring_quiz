@@ -54,7 +54,7 @@
  	</insert>
  	
  	<!-- lesson06 quiz03 db에서 select -->
- 	<delete id="selectBookingListByNameAndPhoneNumber" parameterType="map">
+ 	<select id="selectBookingListByNameAndPhoneNumber" parameterType="map" resultType="com.quiz.retry.booking.domain.BookingRetry">
 		SELECT 
  			`id`
 			,`name`
@@ -66,6 +66,10 @@
 			,`createdAt`
 			,`updatedAt`
 		FROM
-			`booking` 			
- 	</delete>
+			`booking` 
+		WHERE 
+			`name` = #{name}
+		AND 
+			`phoneNumber` = #{phoneNumber}		
+ 	</select>
  </mapper>

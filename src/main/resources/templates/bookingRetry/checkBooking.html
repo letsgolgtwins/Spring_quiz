@@ -84,10 +84,15 @@
 			// 유효성 검사
 			if (!name) {
 				alert("이름을 입력하세요.");
+				return;
 			}
 			if (!phoneNumber) {
 				alert("전화번호를 입력하세요.");
+				return;
 			}
+			// 콘솔로 확인
+			console.log(name);
+			console.log(phoneNumber);
 			
 			$.ajax({
 				// request
@@ -97,11 +102,20 @@
 			
 				// response
 				, success:function(data) {
-					if (data.code == 200) { // 존재하지 않음 예약조회 X
-						alert("예약내역이 존재하지 않습니다.");
-					} else if (data.code == 500) { // 존재함 얘약조회 O
+					if (data.code == 200) { // 존재함 예약조회 O
+						let booking = data.isExist[0]; 
+						// data.isExist는 리스트임. 왜냐? 내가 앞서 List로 받아왔기 때문에. 
+						// 리스트의 각 항목에 접근하지 않고 바로 리스트 그자체에 접근하려 했기 때문에 문제가 발생.
+						// 따라서 (예약자가 한 명으로 겹치지 않는 다는 가정하에) 0번쨰 즉, 첫번째 예약자의 정보( data.isExist[0] )를 일단 꺼내야 함.
+						alert("이름 : " + booking.name 
+								+ "\n전화번호 : " + booking.phoneNumber
+								+ "\n일수 : " + booking.day
+								+ "\n인원 : " + booking.headcount
+								+ "\n상태 : " + booking.state);
 						alert("예약내역이 존재합니다. 예약목록 화면으로 이동합니다.");
 						location.href = "/retry/booking/booking-list-view"
+					} else if (data.code == 500) { // 존재하지 않음 얘약조회 X
+						alert("예약내역이 존재하지 않습니다.");
 					}
 				}
 				, error:function(error) {
