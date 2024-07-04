@@ -15,7 +15,7 @@ import com.quiz.retry.lesson05.domain.MemberRetry;
 
 @RequestMapping("/retry/lesson05")
 @Controller
-public class Lesson05Quiz01ControllerRetry {
+public class Lesson05QuizControllerRetry {
 
 	// lesson05 quiz01
 	// http://localhost:8080/retry/lesson05/quiz01/01
