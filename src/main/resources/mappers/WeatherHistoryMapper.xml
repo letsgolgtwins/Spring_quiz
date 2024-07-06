@@ -44,4 +44,5 @@
 		FROM 
 			`weather_history`
  	</select>
+
  </mapper>
