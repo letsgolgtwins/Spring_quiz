@@ -19,8 +19,8 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @ToString
-@AllArgsConstructor
-@NoArgsConstructor
+@AllArgsConstructor // 파라미터 다 있는 생성자
+@NoArgsConstructor // 기본 생성자
 @Builder(toBuilder = true)
 @Getter
 @Table(name = "recruit")
